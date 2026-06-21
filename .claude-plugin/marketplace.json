@@ -1,0 +1,22 @@
+{
+  "name": "notrest",
+  "owner": {
+    "name": "Not Rest Inc.",
+    "url": "https://do.not.rest"
+  },
+  "metadata": {
+    "description": "Not Rest Inc.'s Claude Code plugin marketplace.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "oracle-suite",
+      "source": "./plugins/oracle-suite",
+      "description": "Working-session toolkit: ORACLE intake → researcher / marketresearcher / stepbystep / actionplan / critic, a director that chains them, and a sessionend handoff. Shared CLAUDE.md foundation keeps sessions continuous.",
+      "version": "1.0.0",
+      "license": "MIT",
+      "homepage": "https://do.not.rest",
+      "keywords": ["research", "planning", "critique", "orchestration", "sessions"]
+    }
+  ]
+}
