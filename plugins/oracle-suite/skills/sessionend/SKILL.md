@@ -1,7 +1,7 @@
 ---
 name: sessionend
 disable-model-invocation: true
-description: Capture the full state of a working session so the next one continues seamlessly. When invoked with /sessionend (or asked to end/wrap up a session, save state, or write a handoff), reconstruct what actually happened and create/update four continuity files — START-HERE.md, HANDOFF.md, STATE.md, and CLAUDE.md (the foundation) — then verify a fresh, memoryless session could resume from them. Works in Claude Code, Cowork, and chats.
+description: Capture the full state of a working session so the next one continues seamlessly. When invoked with /sessionend (or asked to end/wrap up a session, save state, or write a handoff), reconstruct what actually happened and create/update four continuity files — START-HERE.md, HANDOFF.md, STATE.md, and CLAUDE.md (the foundation) — verify a fresh, memoryless session could resume from them, and (in multi-session environments) open the live line: stay alive, send the successor a six-part orientation message, and answer its setup questions from full context (see references/live-handoff-template.md). Works in Claude Code, Cowork, and chats.
 ---
 
 # Session End — Handoff & State Capture
@@ -43,6 +43,13 @@ Detect the environment (per above) and find any existing `START-HERE.md`, `HANDO
 ## Phase 3 — Write/update the four files
 Write each per its spec and create-vs-update rule (below).
 
+## Phase 3.5 — Deposit into memory (if a memory layer exists)
+If the environment has writable persistent memory — Claude Code auto-memory, or a memory MCP with a
+write tool (e.g. `remember`) — deposit a 5–10 line handoff digest: project · date · what shipped ·
+what's in progress · the next step · pointer to `START-HERE.md`. Future sessions can then recall the
+handoff even without the files in front of them. The files remain the source of truth; memory is the
+finding aid.
+
 ## Phase 4 — Verify resumability (self-check)
 Before finishing, confirm — and fix any miss:
 - **Could a fresh session with zero memory resume from `START-HERE.md` alone?** It must name what to read and what to do, in order.
@@ -52,6 +59,22 @@ Before finishing, confirm — and fix any miss:
 - All cited paths/commands are real.
 - In a chat: every file was presented for download with the re-upload reminder.
 
+## Phase 5 — Open the live line (multi-session environments only)
+Files are lossy; the ending session's context is not. Where session-to-session tools exist
+(Claude Code desktop: `list_sessions` / `send_message` / `search_session_transcripts`), the handoff
+gets a second layer — full protocol and message templates in
+**`references/live-handoff-template.md`**. In short:
+1. **Don't close this session after writing the files.** Tell the user to keep it alive until the
+   successor confirms it's oriented; give them the paste-ready successor opener from the template.
+   **Record the line in `START-HERE.md`**: add the "Live line:" row (this session's title, and id if
+   known) so the successor's `oracle` intake knows exactly whom to call.
+2. When the successor exists, **proactively send it the six-part orientation message** (state in 3
+   lines · predictable questions answered · **honest unknowns** · decisions that are the user's ·
+   gated actions · open line). `send_message` prompts the user each time — that's the consent gate.
+3. **Answer its replies from full context**, marking fact vs recommendation vs user's-call, and have
+   it write discoveries back into the continuity files (docs stay truth; the line is a patch channel).
+In plain chats, skip this phase — but note the successor can often still search old transcripts.
+
 ## The files
 
 ### `START-HERE.md` — the entry point (create/replace)
@@ -59,6 +82,8 @@ The master index the next session opens first. Plain and ordered.
 ```markdown
 # Start Here — <project/session name>
 **Status in one line:** <where things stand>
+**Live line:** previous session "<this session's title>" (id <sessionId if known>) — still alive;
+message it your setup questions before building. If closed, search its transcript.
 
 ## Read these first, in order
 1. HANDOFF.md — where we are and what's next

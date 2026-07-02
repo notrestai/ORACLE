@@ -22,6 +22,16 @@ If the invocation includes `--quick` (or a clear equivalent — "quick", "brief"
 - **Stay honest anyway.** Don't fabricate; still flag a claim inline as `[recall]`/`[unverified]` if it is. End with one line: *"Quick read — not fully sourced or saved; run again without `--quick` for the verifiable two-file version."*
 Quick mode is for fast exploration, not deliverables.
 
+## Panel mode (`--panel`, or any high-stakes document)
+Single-pass ruthlessness misses what diverse lenses catch. When the invocation includes `--panel`,
+the user asks for a thorough/multi-angle critique, or the document is high-stakes (a strategy, an
+architecture, money, safety): run the passes through **distinct lenses as separate mini-critiques** —
+correctness · security/robustness · economics & incentives · adversary-or-competitor ·
+implementation feasibility — each producing its own findings before Pass 6 adjudicates across them.
+Where subagents are available, run the lenses in parallel and synthesize; otherwise sequentially.
+A finding that survives multiple lenses outranks any single lens's severity call; a finding only one
+lens produces is flagged as perspective-dependent in the dossier.
+
 ## Setup & output files
 
 Derive a `{topic}` slug from the document's subject or title: lowercase, hyphen-joined, punctuation stripped, max ~50 chars. Create a `critique/` directory and write exactly two files:
