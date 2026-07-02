@@ -1,5 +1,12 @@
 # Changelog — ORACLE Suite
 
+## 1.1.1 — 2026-07-02
+
+- **Self-updating from git.** The `SessionStart` hook now quietly `git pull --ff-only`s the plugin's
+  own clone (fire-and-forget: never blocks startup, never clobbers local edits; updates apply from
+  the next session). Install the plugin from a git clone once and it stays current with the repo.
+  Security note: this executes what origin ships — point it only at a repo you control.
+
 ## 1.1.0 — 2026-07-02
 
 **The continuity release: the handoff stops depending on memory and discipline.**

@@ -1,7 +1,7 @@
 {
   "name": "oracle-suite",
   "displayName": "ORACLE Suite",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A working-session toolkit by Not Rest Inc.: ORACLE session intake, a deep researcher, a market researcher, a step-by-step planner, a copy-paste runbook builder, an adversarial critic, a director that chains them into pipelines, and a session-end handoff \u2014 bookended by a shared CLAUDE.md foundation so sessions stay continuous \u2014 with automated continuity hooks (SessionStart resume detection, PreCompact handoff reminder) and a live cross-session handoff line.",
   "author": {
     "name": "Not Rest Inc.",
