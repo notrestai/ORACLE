@@ -11,6 +11,12 @@ if [ -n "$PLUGIN_GIT_ROOT" ]; then
   ( cd "$PLUGIN_GIT_ROOT" && git pull --ff-only --quiet >/dev/null 2>&1 & ) 2>/dev/null
 fi
 
+# ── fable discipline: bolted to the metal. Unconditional every session so the
+# working posture is present without anyone typing /fable-mode. The anchor is
+# always in context; the full contract is one skill-load away. Trivial single-
+# question turns may skip. stdout is injected as session context.
+echo "[oracle-suite] Fable discipline is active this session. Run substantive work (building, debugging, deploying, multi-step tasks) through the loop: ORIENT (read the project's state docs first) -> PROBE (inspect the live system before reasoning — read-only inspection is free, arguing from priors when a command could answer is a violation) -> ACT (smallest verifiable step; show-before-run on any mutating/production/irreversible action, then wait for explicit go) -> PROVE (a 'done/works/fixed' claim requires observable evidence in-transcript — exit code, HTTP status, pid, diff, log line; otherwise say 'unverified'; 'should work' is banned) -> BANK (checkpoint state + the exact resume payload; assume the session can die any minute). Also: verify handed-down claims (docs/memory go stale) against the live system before building on them; surface conflicts, never silently smooth; secrets never enter context. Load the full contract with the fable-mode skill (oracle-suite:fable-mode). Skip only for trivial single-question turns."
+
 # ── continuity nudge: stdout is injected as session context.
 if [ -f "START-HERE.md" ]; then
   echo "[oracle-suite] START-HERE.md exists in this directory — a previous session left resume instructions (and possibly a 'Live line:' to a predecessor session that can answer setup questions). Suggest /oracle to the user to resume properly, or read START-HERE.md before starting work."

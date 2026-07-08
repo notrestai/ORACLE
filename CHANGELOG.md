@@ -1,5 +1,24 @@
 # Changelog — ORACLE Suite
 
+## 1.2.0 — 2026-07-08
+
+**The discipline release: reliable working posture, bolted to the metal.**
+
+- **`fable-mode` skill** — a working-discipline contract (not a capability; a process): the loop
+  **ORIENT → PROBE → ACT → PROVE → BANK**, ten hard rules (empirical-first; verify handed-down
+  claims against the live system; prove-then-claim with "should work" banned; show-before-run;
+  root-cause-with-a-budget; blocked ≠ stopped; surface conflicts, never smooth; secrets never in
+  context; momentum + honesty; own the estate of record), and a verification cookbook
+  (405-vs-404 route probe, hash + container-start-time for "deployed = latest", `kill -9`-past-the-
+  throttle for supervision claims, watch the receiver's logs for a clean cutover). Distilled from
+  live Fable 5 sessions; makes any model — Opus especially — convert capability into reliability.
+  Invoke with `/fable-mode`, "work like fable", or "2× reliability".
+- **SessionStart hook now bolts the discipline to the metal.** Beyond the START-HERE/HANDOFF resume
+  nudges, the hook unconditionally injects a compact fable-discipline anchor (the loop + the
+  highest-value rules + a directive to load the full `fable-mode` contract) as session context —
+  every session, no `/fable-mode` needed. Trivial single-question turns may skip; substantive work
+  runs the loop. This is the "bolt to the metal" upgrade over relying on a CLAUDE.md instruction.
+
 ## 1.1.1 — 2026-07-02
 
 - **Self-updating from git.** The `SessionStart` hook now quietly `git pull --ff-only`s the plugin's
