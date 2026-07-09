@@ -1,7 +1,6 @@
 ---
 name: researcher
-disable-model-invocation: true
-description: Run a rigorous multi-pass research workflow on a prompt, consolidating all working passes into one background document and a final decision dossier (two files total). Use this whenever the user invokes /researcher, or asks to "research", "deeply investigate", "compare alternatives for", "find best practices for", or "find the best X for my situation" — especially when the question is open-ended, has multiple plausible answers, or benefits from comparing options against evidence. Trigger even if the user doesn't say the word "research" but is clearly asking you to investigate options and recommend one.
+description: Rigorous multi-pass research on any question — baseline, ≥5 alternatives, tiered real sources, comparison, disconfirmation — producing a background doc + decision dossier (or --quick for chat-only). Use on /researcher or natural asks to research, deeply investigate, compare alternatives, find best practices, or "find the best X for my situation" — any open-ended question that deserves evidence over vibes. Not for simple lookups you can answer directly.
 ---
 
 # Researcher
@@ -31,12 +30,14 @@ If those files already exist from a prior run, suffix the topic with `-2` (then 
 
 This workflow depends on web search and fetch tools. If they're unavailable, tell the user the research will be limited to your own knowledge (clearly labeled as such) and ask whether to proceed.
 
+**Search budget (token discipline):** default to ~20 searches/fetches across the whole run (~4 in `--quick`), spent where they matter most — Passes 3 and 5 usually deserve the largest share. Exceed the budget only when a load-bearing claim is still unverified or the user asked for exhaustive depth, and say so when you do.
+
 ## Honesty rules (apply throughout)
 
 These are non-negotiable because a research tool that fabricates is worse than no tool.
 
 - **Never invent sources.** No made-up URLs, paper titles, author names, dates, or statistics. If you can't find support for a claim, write "unverified" and move on.
-- **Label every factual claim** as one of: `[cited]` (backed by a source you actually retrieved this run), `[recall]` (from your own training knowledge, not freshly verified), or `[unverified]` (you believe it but couldn't confirm).
+- **Label every factual claim** as one of: `[cited]` (backed by a source you actually retrieved this run), `[recall]` (from your own training knowledge, not freshly verified), `[estimate]` (you computed it — show the math and assumptions), or `[unverified]` (you believe it but couldn't confirm).
 - **Surface disagreement.** When sources conflict, show the conflict explicitly — name both positions and who holds each. Do not average them into a smooth consensus that no source actually states.
 - **Give confidence levels** (high / medium / low) on conclusions, and state what new evidence would change them.
 - **Cite real links.** Every `[cited]` claim must carry the URL you pulled it from.
@@ -148,7 +149,7 @@ Before declaring done, verify the dossier against this list and fix any miss:
 
 ## Finishing up
 
-Write `{topic}background.md` first (all five passes), then `{topic}Dossier.md`. Give the user a short chat summary: the recommendation, its confidence level, and the paths to both files — point them to the dossier as the main read. Don't paste the files into chat. Offer to dig deeper on any single pass.
+Write `{topic}background.md` first (all five passes), then `{topic}Dossier.md`. Give the user a short chat summary: the recommendation, its confidence level, and the paths to both files — point them to the dossier as the main read. Don't paste the files into chat. Offer to dig deeper on any single pass — or to run `/critic` on the dossier to red-team the recommendation, or `/factcheck` to verify its load-bearing claims, before acting on it.
 
 ## Notes on tone and rigor
 

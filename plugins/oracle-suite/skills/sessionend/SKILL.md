@@ -1,7 +1,6 @@
 ---
 name: sessionend
-disable-model-invocation: true
-description: Capture the full state of a working session so the next one continues seamlessly. When invoked with /sessionend (or asked to end/wrap up a session, save state, or write a handoff), reconstruct what actually happened and create/update four continuity files — START-HERE.md, HANDOFF.md, STATE.md, and CLAUDE.md (the foundation) — verify a fresh, memoryless session could resume from them, and (in multi-session environments) open the live line: stay alive, send the successor a six-part orientation message, and answer its setup questions from full context (see references/live-handoff-template.md). Works in Claude Code, Cowork, and chats.
+description: Capture session state into four continuity files — START-HERE.md (ordered resume instructions), HANDOFF.md, STATE.md, and CLAUDE.md (the foundation, merged never clobbered) — verify a memoryless session could resume from them alone, then in multi-session environments open the live line to the successor (references/live-handoff-template.md). Use on /sessionend or when the user asks to end/wrap up the session, save state, or write a handoff. Works in Claude Code, Cowork, and chats.
 ---
 
 # Session End — Handoff & State Capture

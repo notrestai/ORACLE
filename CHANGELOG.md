@@ -1,5 +1,40 @@
 # Changelog — ORACLE Suite
 
+## 2.0.0 — 2026-07-09
+
+**The public release: token-lean, verified, model-agnostic — and natural-language invocable.**
+
+- **Three new skills fill the suite's own vision-verbs:**
+  - **`explainer`** — genuine understanding of any topic/system/document: a correct mental model
+    (analogies must state where they break), three depth layers (plain → working → expert), the
+    standard misconceptions, and verify-it-yourself checks on the load-bearing claims.
+  - **`decider`** — structured decisions: options incl. do-nothing/wait, user-weighted criteria
+    (must-haves vs tradeables), evidence per option, a reasoned scoring matrix with a sensitivity
+    check that names the hinge assumption, a pre-mortem on the front-runner, and a
+    reversibility-aware recommendation (two-way vs one-way doors).
+  - **`factcheck`** — claim-by-claim verification: verbatim claim extraction, primary-source
+    hunting with true independence (daisy-chains traced to their single origin), and a five-verdict
+    grammar — ✅ CONFIRMED / 🟡 PLAUSIBLE / 🔴 REFUTED / 🔵 MISLEADING (technically-true-but-
+    framing-lies) / ⚪ UNVERIFIABLE — plus an auditable search log.
+- **Natural-language invocation everywhere (breaking-ish, hence 2.0).** All working skills dropped
+  `disable-model-invocation` — "research X", "should I…", "is this true", "wrap up the session"
+  now trigger the right skill without memorizing commands. This also fixes a real 1.x defect: the
+  PreCompact hook told the model to run `/sessionend`, which the flag made impossible. Every
+  description was rewritten tighter (the always-loaded surface stays lean) with explicit
+  "not for trivial asks" guards. `director` still runs sub-skills by reading them from disk —
+  now for stage-isolation reasons, stated as such.
+- **Token discipline made explicit:** search budgets in researcher (~20), marketresearcher (~25),
+  explainer (~8), decider (~10), factcheck (~3/claim) — expandable only for load-bearing gaps or
+  on user request, and said aloud when exceeded.
+- **Consistency & routing:** `[estimate]` label added to researcher (math shown, matching
+  marketresearcher); cross-skill handoffs at every Finishing-up (researcher→critic/factcheck,
+  marketresearcher→critic/stepbystep, stepbystep→actionplan/critic); `oracle` intake now routes
+  the stated Objective to the right skill/chain and defaults a skipped Evaluation to the suite's
+  reliability standard; `director` gains default chains for the new skills.
+- **Public docs:** README principles (token-lean · verified · model-agnostic), full 13-skill
+  tables, and `docs/TUTORIAL.md` — install → the shape of every skill → the first full loop →
+  which-skill-when → chains worth knowing.
+
 ## 1.3.0 — 2026-07-09
 
 **The orchestration release: the fable arrangement, packaged for any repo.**

@@ -1,7 +1,6 @@
 ---
 name: critic
-disable-model-invocation: true
-description: Ruthlessly and rigorously critique a document attached to the prompt (or the relevant content in the conversation) — steelman it, then question every part, actively argue the opposite, hunt for failure modes, and surface better alternative ways to achieve the same objective. Writes two files: a background working document and a final critique dossier with a severity-tiered verdict. Use whenever the user invokes /critic, or asks to "critique", "tear apart", "red-team", "poke holes in", "stress-test", "find the flaws in", "challenge", or "play devil's advocate on" a document, plan, argument, proposal, or piece of writing — including the dossiers produced by other skills.
+description: Adversarial review of any document, plan, argument, or prior dossier — steelman first, then severity-tiered objections (🔴 fatal / 🟠 serious / 🟡 minor), a disconfirmation pass, ≥3 genuine alternatives, and a fair verdict — producing a background doc + critique dossier (--quick for chat-only; --panel for multi-lens on high-stakes docs). Use on /critic or asks to critique, red-team, poke holes in, stress-test, tear apart, challenge, or play devil's advocate.
 ---
 
 # Critic

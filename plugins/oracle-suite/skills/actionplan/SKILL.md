@@ -1,7 +1,6 @@
 ---
 name: actionplan
-disable-model-invocation: true
-description: Turn a stepbystep action-plan dossier into a concrete, copy-paste-ready runbook — expanding each phase into exact ordered commands, code, and configuration the user can run themselves to finish the job offline. Reads the stepbystep document (and an optional map.md describing the environment), asks targeted questions about the machines/hosts when needed, and never invents environment specifics. Use whenever the user invokes /actionplan, or asks to "turn this plan into commands", "make this copy-paste", "give me the exact steps/code", "write the runbook", or "implement the stepbystep plan".
+description: Expand a stepbystep plan dossier into a copy-paste runbook — exact ordered commands per host, a verify + rollback on every step, ⛔ warnings before destructive ops, placeholders instead of invented environment specifics (reads an optional map.md). Use on /actionplan or asks to "turn this plan into commands", "make this copy-paste", "write the runbook", or "give me the exact steps/code". If no stepbystep plan exists yet, suggest /stepbystep first.
 ---
 
 # Action Plan (Runbook builder)

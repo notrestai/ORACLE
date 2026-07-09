@@ -1,7 +1,7 @@
 ---
 name: oracle
 disable-model-invocation: false
-description: Use when the user says "hey oracle", "/oracle", or wants to start an ORACLE session: first load any existing CLAUDE.md foundation and offer to resume from a prior START-HERE.md — and when resuming a continuation in a multi-session environment (Claude Code), connect back to the predecessor session over the live line (find it via START-HERE's "Live line:" row or list_sessions, message it one batch of setup questions, fold in its answers) — then ask six context-setup questions one at a time (Objective, Role, Architecture, Content, Leverage, Evaluation), each skippable, then proceed using the answers — scaffolding a starter CLAUDE.md if none exists yet. Not for ordinary questions.
+description: Session intake + resume — the suite's front door. On "hey oracle", /oracle, "start an oracle session", or "resume / pick up where we left off": load the CLAUDE.md foundation, offer to resume from START-HERE.md (in multi-session environments, open the live line back to the predecessor and fold its answers in), ask the six ORACLE questions one at a time (Objective, Role, Architecture, Content, Leverage, Evaluation — each skippable), recommend which suite skill fits the objective, then proceed — scaffolding a starter CLAUDE.md if none exists. Not for ordinary questions.
 ---
 
 # ORACLE — Session Intake
@@ -47,9 +47,10 @@ If there's **no `CLAUDE.md`**, you'll **always** scaffold one after the intake (
 - Reflect back a one-line summary per slot, "—" for anything skipped:
   > **O:** … **R:** … **A:** … **C:** … **L:** … **E:** …
 - Ask: "Ready to go, or want to change anything?"
+- **Route to the right tool:** from the Objective, name the suite skill (or chain) that fits and why, in one line — research a question → `/researcher` · understand a topic → `/explainer` · make a choice → `/decider` · verify claims → `/factcheck` · size a market → `/marketresearcher` · build a plan → `/stepbystep` (then `/actionplan` for commands) · red-team something → `/critic` · several in sequence → `/director` — or say "no skill needed, working directly." The user can take the route or ignore it.
 - **Foundation file — always create on a new session:** if no `CLAUDE.md` exists, **always scaffold one** from the bundled **`references/claude-foundation-template.md`** — no matter how many slots were answered or skipped (even an all-skipped/test intake still gets the file). Seed it with whatever answers you have (Architecture → protocol, Leverage → tooling, Content → the project section) and keep the template's placeholders for anything unanswered, so the structure is ready for `sessionend` to fill from real work. Keep it a *base*, not comprehensive. Write it where it persists: repo root in Claude Code (so it's auto-read), the working dir in Cowork, or the outputs area in a chat (present it for download). If `CLAUDE.md` already exists, leave it untouched — you loaded it; updates happen at session end.
 - Then do the work, applying the answers. Internally follow the loading rule: **use their Content first and keep their actual ask last; put the most important facts at the start or end, never buried in the middle.**
-- For any skipped slot, pick a sensible default and note in one line what you assumed.
+- For any skipped slot, pick a sensible default and note in one line what you assumed. For a skipped **Evaluation**, default to the suite's reliability standard: label non-obvious claims, flag anything unverified plainly, and end substantial answers with the one thing most likely to be wrong.
 
 ## Note
 This is a setup ritual for a real working session. For a quick one-off, the user can answer just **Objective** (and maybe **Content**) and skip the rest.

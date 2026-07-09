@@ -1,7 +1,6 @@
 ---
 name: stepbystep
-disable-model-invocation: true
-description: Read the documents and goal in the prompt and produce a complete, correctly ordered, stress-tested action plan with per-step verification and confidence scoring. Runs validation passes, then a deep-research-per-step and critic-redraft loop that iterates until the plan converges (results stop changing), and writes two files — a background working document and a final executable plan dossier. Use whenever the user invokes /stepbystep, or asks for "a step-by-step plan", "an action plan", "how do I do X", "walk me through doing X", "lay out the steps to", "a checklist/playbook/runbook for", or hands over documents (a spec, brief, requirements, goal doc) and wants them turned into an ordered set of actions. Trigger for any "turn this into a plan I can execute" request, technical or not.
+description: Turn a goal + documents into a dependency-ordered, stress-tested action plan with a per-step "done when" check and honest confidence scores, refined by a research→critique loop until it converges (hard cap 5 rounds) — producing a background doc + executable plan dossier (or --quick). Use on /stepbystep or asks for a step-by-step / action plan, "how do I do X", a checklist or playbook, or "turn this into a plan I can execute" — technical or not.
 ---
 
 # Step By Step
@@ -228,7 +227,7 @@ Before declaring done, verify the dossier and fix any miss:
 
 ## Finishing up
 
-Write `{topic}background.md` first (the six build passes plus every refinement round), then `{topic}Dossier.md`. Give the user a short chat summary: the goal, the overall confidence, **how many iterations it took to converge (or that it hit the cap)**, the single biggest risk, and the paths to both files — point them to the dossier as the thing to execute from. Don't paste the files into chat. Offer to dig deeper on any pass or to expand any phase into finer steps.
+Write `{topic}background.md` first (the six build passes plus every refinement round), then `{topic}Dossier.md`. Give the user a short chat summary: the goal, the overall confidence, **how many iterations it took to converge (or that it hit the cap)**, the single biggest risk, and the paths to both files — point them to the dossier as the thing to execute from. Don't paste the files into chat. Offer to dig deeper on any pass, to expand any phase into finer steps — or to chain onward: `/actionplan` to turn the dossier into a copy-paste runbook, `/critic` to attack the plan before executing it.
 
 ## Notes on tone and rigor
 

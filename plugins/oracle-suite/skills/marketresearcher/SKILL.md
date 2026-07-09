@@ -1,7 +1,6 @@
 ---
 name: marketresearcher
-disable-model-invocation: true
-description: Run a structured, funnel-shaped market-research workflow — market definition through sizing, competitive landscape, gap/whitespace analysis, entry feasibility, and drafted opportunity ideas — consolidating all stages into one background document and a final opportunity dossier (two files total). Use whenever the user invokes /marketresearcher, or asks to research or size a market, map or analyze competitors, find market gaps or whitespace, identify a niche, assess whether to enter a market, evaluate barriers to entry, or validate/shape a business or product idea against a competitive landscape. Trigger even if the user doesn't say "market research" but is clearly asking to investigate a market opportunity and decide where to play.
+description: Funnel-shaped market research — scope, two-way sizing (top-down + bottom-up, reconciled), competitor map with the graveyard, gap/whitespace verdicts, feasibility scoring, drafted entry ideas — producing a background doc + opportunity dossier (or --quick). Use on /marketresearcher or asks to size a market, map or analyze competitors, find gaps/whitespace or a niche, assess market entry, or validate a business/product idea. Research to inform a decision — never investment advice.
 ---
 
 # Market Researcher
@@ -32,6 +31,8 @@ Derive a `{topic}` slug from the prompt: lowercase, hyphen-joined, punctuation s
 If those files already exist from a prior run, suffix the topic with `-2` (then `-3`, etc.) so you never overwrite previous work.
 
 This workflow depends on web search and fetch tools. If they're unavailable, say so plainly — market research without live sources is nearly worthless because the data goes stale fast — and ask whether to proceed on labeled recall only.
+
+**Search budget (token discipline):** default to ~25 searches/fetches for the whole funnel (~5 in `--quick`) — sizing and the competitor map deserve the largest share. Exceed it only for a load-bearing number still unpinned, and say so when you do.
 
 ## Honesty rules (apply throughout — stricter than general research)
 
@@ -159,7 +160,7 @@ Before declaring done, verify the dossier and fix any miss:
 
 ## Finishing up
 
-Write `{topic}background.md` first (all seven stages), then `{topic}Dossier.md`. Give the user a short chat summary: the recommended opportunity, its confidence level, and the paths to both files — point to the dossier as the main read. Don't paste the files into chat. Offer to dig deeper on any single stage.
+Write `{topic}background.md` first (all seven stages), then `{topic}Dossier.md`. Give the user a short chat summary: the recommended opportunity, its confidence level, and the paths to both files — point to the dossier as the main read. Don't paste the files into chat. Offer to dig deeper on any single stage — or to chain onward: `/critic` to red-team the opportunity, `/stepbystep` to plan the entry.
 
 ## Notes on tone and rigor
 

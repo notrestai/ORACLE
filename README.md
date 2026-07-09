@@ -12,7 +12,7 @@ The **`notrest`** plugin marketplace by [Not Rest Inc.](https://do.not.rest).
 ## Plugins
 
 ### ORACLE Suite (`oracle-suite`)
-A working-session toolkit — structured thinking from intake to handoff:
+A working-session toolkit — structured thinking from intake to handoff, built on three principles: **token-lean** (progressive disclosure, `--quick` modes, built-in search budgets), **verified** (real tiered sources, disconfirmation passes, honesty labels on every claim), and **model-agnostic** (the discipline lives in the skills, so any model runs them reliably):
 
 | Skill | What it does |
 |---|---|
@@ -22,6 +22,9 @@ A working-session toolkit — structured thinking from intake to handoff:
 | **stepbystep** | Turns a goal/docs into a stress-tested, converged, ordered action plan. |
 | **actionplan** | Expands a stepbystep plan into a copy-paste-ready runbook (exact commands per host). |
 | **critic** | Adversarial red-team of any document — steelman, attack, alternatives, severity-tiered verdict. |
+| **explainer** | Layered understanding of any topic — a correct mental model, plain → working → expert layers, the standard misconceptions, verify-it-yourself checks. |
+| **decider** | Structures any decision — weighted criteria, evidence per option, sensitivity ("which assumption flips the winner"), pre-mortem, recommendation with reversibility framing. |
+| **factcheck** | Claim-by-claim verification against real sources — ✅ CONFIRMED / 🟡 PLAUSIBLE / 🔴 REFUTED / 🔵 MISLEADING / ⚪ UNVERIFIABLE, with daisy-chained sources detected. |
 | **director** | Chains the other skills into a pipeline (e.g. `marketresearcher → critic → stepbystep`). |
 | **fable-director** | Seats and runs the **"3 DEVS AND A RELAY"** multi-session dev arrangement — a metered Fable/Opus director that applies all code, flat Opus dev/QC lanes handing EDIT SPECS, per-lane blackboard files with token-watch wakes, a QC refuter relay, and a self-carrying rotation ritual. Bundles the V4 protocol of record + a repo scaffolder. Invoke with `/fable-director`. |
 | **sessionend** | Captures session state into START-HERE / HANDOFF / STATE / CLAUDE.md so the next session resumes seamlessly. |
@@ -32,6 +35,9 @@ A working-session toolkit — structured thinking from intake to handoff:
 ## Continuity & discipline hooks
 - **SessionStart** — self-updates the plugin from git (fire-and-forget `--ff-only`); injects the **fable-discipline anchor** every session; detects `START-HERE.md` / `HANDOFF.md` and adds a resume nudge; detects `FABLE-COORD*.md` blackboards and nudges seating the fable-director.
 - **PreCompact** — reminds that a deliberate `/sessionend` handoff preserves more than automatic compaction.
+
+## 10-minute tutorial
+[docs/TUTORIAL.md](docs/TUTORIAL.md) — install → the shape of every skill → your first full loop → which-skill-when → chains worth knowing.
 
 ## License
 MIT © 2026 Not Rest Inc.

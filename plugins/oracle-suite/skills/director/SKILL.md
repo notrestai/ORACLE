@@ -1,7 +1,6 @@
 ---
 name: director
-disable-model-invocation: true
-description: Orchestrate a sequence of other skills end to end — read the ordered list of skills named in the prompt, run each one in turn, and feed each stage's output into the next as its input, until the chain completes. Produces a numbered run folder with every stage's files plus a consolidated pipeline summary. Use whenever the user invokes /director, or asks to "run these skills in sequence", "chain", "pipeline", or "do X then Y then Z" across multiple skills (e.g. "research this then build a plan", "find the market opportunity, critique it, then plan the launch").
+description: Chain other ORACLE skills into a pipeline — parse the ordered skill list + seed input, run every stage for real (reading each skill's SKILL.md from disk; isolated subagent per stage where available), hand each stage's output to the next, and produce a numbered run folder + pipeline summary (or --quick). Use on /director or asks to run skills in sequence, chain, pipeline, or "do X then Y then Z" (e.g. "research this, critique it, then plan it"). For orchestrating SESSIONS instead, see fable-director.
 ---
 
 # Director
@@ -23,7 +22,7 @@ Resolve each named skill's `SKILL.md` by checking these locations **in order**, 
 
 For every skill in the sequence, read its `SKILL.md` before the run. If a named skill can't be found in any of those locations, **stop and report it** — list the skills you did find and ask how to proceed. Don't substitute a different skill or invent the missing one's behavior.
 
-> **How the director runs a skill (important):** it **reads the skill's `SKILL.md` from disk and performs that workflow** — it must **never** invoke a sub-skill via the Skill tool. The sub-skills carry `disable-model-invocation: true`, so the tool path is *blocked*, and a blocked invocation is exactly what produces the "I don't have / can't invoke that skill" failure. File-read-and-follow is the only mechanism, and it is unaffected by the flag.
+> **How the director runs a skill (important):** it **reads the skill's `SKILL.md` from disk and performs that workflow** — it must **never** invoke a sub-skill via the Skill tool, even though the sub-skills are individually invocable. Two reasons, both structural: a nested Skill invocation dumps the sub-skill's full contract into the director's own context (defeating stage isolation), and it detaches the stage from the pipeline's file/checklist discipline. File-read-and-follow is the only mechanism that keeps stages isolated, resumable, and auditable.
 
 ## Quick mode (`--quick`)
 If the invocation includes `--quick` (or "quick" / "brief" / "no files"), run the chain lightweight:
@@ -49,7 +48,7 @@ If `pipeline/` already exists from a prior run, suffix the topic with `-2` (then
 - **The handoff must be genuine.** Stage N+1's input is the actual designated output of stage N — not your memory of it, not a paraphrase you wish it said. Re-read the produced file when handing off.
 - **Surface failures, don't paper over them.** If a stage fails, produces something too thin to chain, or a skill is missing, stop and report it rather than improvising a fake result to keep the pipeline moving.
 - **Preserve labels and confidence across the chain.** The final result inherits the confidence and caveats of the last stage; don't launder a low-confidence finding into a confident one by passing it through more skills.
-- **Read from disk, never invoke as a tool.** Locate and read each sub-skill's `SKILL.md` with file tools and follow it. Never call the Skill tool for a sub-skill — `disable-model-invocation: true` blocks it, and a blocked call is what makes a stage report "I don't have that skill."
+- **Read from disk, never invoke as a tool.** Locate and read each sub-skill's `SKILL.md` with file tools and follow it. Never call the Skill tool for a sub-skill — a nested invocation floods the director's context and breaks the stage isolation and on-disk checklist this design depends on.
 - **Isolate each stage so context can't run out.** A chain stacked into one conversation exhausts the context window, and the deepest (last) stages get dropped or "forgotten" — the classic "it skipped the last skill" failure. Run each stage in its own context (Phase 3). The director thread stays light — chain, handoffs, checklist — and never carries a stage's full working.
 
 ## The phases
@@ -165,5 +164,5 @@ Write `{topic}background.md` as you go (logging each handoff), and `{topic}Dossi
 
 - The director's value is faithful orchestration, not new analysis — its job is to run the others correctly and chain them honestly, then get out of the way.
 - A chain is only as trustworthy as its weakest stage; carry that stage's uncertainty all the way to the final result.
-- Good default chains: `researcher → critic` (find an answer, then red-team it); `marketresearcher → critic → stepbystep` (opportunity → stress-test → plan); `stepbystep → critic` (plan, then attack the plan).
+- Good default chains: `researcher → critic` (find an answer, then red-team it); `marketresearcher → critic → stepbystep` (opportunity → stress-test → plan); `stepbystep → critic` (plan, then attack the plan); `researcher → factcheck` (research, then verify the load-bearing claims); `researcher → decider` (gather evidence, then structure the choice); `stepbystep → actionplan` (plan, then make it copy-paste).
 - It runs autonomously — no confirmations, no check-ins, no "continue?" prompts. In Claude Code it finishes the whole chain in one pass via subagent isolation; in claude.ai it runs continuously and, if the platform's context limit ever cuts a turn off, resumes silently from the on-disk checklist. The only honest limit is that very long chains may not fit one claude.ai turn — that's a platform ceiling, not a reason to start asking the user questions.
