@@ -28,7 +28,7 @@ A working-session toolkit — structured thinking from intake to handoff, built 
 | **director** | Chains the other skills into a pipeline (e.g. `marketresearcher → critic → stepbystep`). |
 | **fable-director** | Seats and runs the **"3 DEVS AND A RELAY"** multi-session dev arrangement — a metered Fable/Opus director that applies all code, flat Opus dev/QC lanes handing EDIT SPECS, per-lane blackboard files with token-watch wakes, a QC refuter relay, and a self-carrying rotation ritual. Bundles the V4 protocol of record + a repo scaffolder. Invoke with `/fable-director`. |
 | **sessionend** | Captures session state into START-HERE / HANDOFF / STATE / CLAUDE.md so the next session resumes seamlessly. |
-| **fable-mode** | A verification-first working-discipline contract (ORIENT → PROBE → ACT → PROVE → BANK): probe before believing, prove before claiming, bank before stopping. Auto-anchored into every session by the SessionStart hook; load the full contract with `/fable-mode`. |
+| **fable-mode** | The Fable behavioral contract: the ORIENT → PROBE → ACT → PROVE → BANK loop, hard rules, THE FABLE DIFFERENCE (instinct → fable move), a consumer-side verification cookbook, the outage playbook (reroute, stage, never stall), tool-graph craft, and situational profiles. Auto-anchored every session by the SessionStart hook; full contract via `/fable-mode`. |
 
 `oracle` + `sessionend` are bookends: ORACLE loads the foundation at the start, sessionend updates it at the end — together they make sessions continuous. **fable-mode** is the posture in between: the SessionStart hook injects its discipline anchor every session, so reliable working habits are on by default without anyone typing `/fable-mode`.
 

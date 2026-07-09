@@ -1,5 +1,21 @@
 # Changelog — ORACLE Suite
 
+## 2.1.0 — 2026-07-09
+
+**fable-mode v2: the full Fable behavioral contract.**
+
+- Beyond the loop and hard rules, fable-mode now carries: **THE FABLE DIFFERENCE** (eight
+  instinct→fable-move reflex swaps), a **consumer-side verification cookbook** (prove it at
+  the surface that serves it — registry re-lists, UI structured-probes-before-pixels,
+  run-the-generator-and-grep-its-output, both-sides checksums), a seven-step **outage
+  playbook** (map the failure domain by experiment, reroute, chunk-stage-assemble,
+  canary-with-value retries — distilled live from shipping v2.0.0 through a flapping
+  tool-gate), **tool-graph craft** (failure-domain- and cost-aware tool choice; compose
+  missing tools), and eight **situational profiles** (debugging, shipping, live-ops,
+  research, data, long-horizon, multi-agent, degraded harness).
+- **SessionStart anchor** gains the reroute clause (reroute instead of stalling; smallest
+  probes; stage-then-assemble; keep unblocked lanes moving).
+
 ## 2.0.0 — 2026-07-09
 
 **The public release: token-lean, verified, model-agnostic — and natural-language invocable.**
