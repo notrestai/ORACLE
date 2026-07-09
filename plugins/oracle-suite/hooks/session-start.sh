@@ -24,4 +24,7 @@ fi
 if [ -f "HANDOFF.md" ] && [ ! -f "START-HERE.md" ]; then
   echo "[oracle-suite] HANDOFF.md exists here — prior session state is available; consider reading it before starting work."
 fi
+if ls FABLE-COORD*.md >/dev/null 2>&1; then
+  echo "[oracle-suite] FABLE-COORD*.md blackboards exist in this directory — a fable-director arrangement lives in this repo. If this session is meant to direct (or rejoin) it, load the fable-director skill (oracle-suite:fable-director): it reads the repo's PLAN-FABLE-DIRECTOR-V4.md + blackboards and re-arms watches before anything else."
+fi
 exit 0

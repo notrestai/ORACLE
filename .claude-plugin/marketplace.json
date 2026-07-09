@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Not Rest Inc.'s Claude Code plugin marketplace.",
-    "version": "1.2.0"
+    "version": "1.3.0"
   },
   "plugins": [
     {
       "name": "oracle-suite",
       "source": "./plugins/oracle-suite",
-      "description": "Working-session toolkit with a live cross-session handoff line: ORACLE intake (resumes + interrogates the predecessor session) -> researcher / marketresearcher / stepbystep / actionplan / critic, a director that chains them, and a self-recording sessionend handoff. fable-mode bolts a verification-first working discipline into every session via the SessionStart hook. Automated continuity hooks + shared CLAUDE.md foundation keep sessions continuous.",
-      "version": "1.2.0",
+      "description": "Working-session toolkit with a live cross-session handoff line: ORACLE intake (resumes + interrogates the predecessor session) -> researcher / marketresearcher / stepbystep / actionplan / critic, a director that chains them, and a self-recording sessionend handoff. fable-mode bolts a verification-first working discipline into every session via the SessionStart hook. fable-director seats and rotates the '3 devs and a relay' multi-session dev arrangement (a metered director + flat lanes over per-lane blackboard files with token-watch wakes). Automated continuity hooks + shared CLAUDE.md foundation keep sessions continuous.",
+      "version": "1.3.0",
       "license": "MIT",
       "homepage": "https://do.not.rest",
       "keywords": [
@@ -21,6 +21,7 @@
         "planning",
         "critique",
         "orchestration",
+        "multi-agent",
         "sessions"
       ]
     }

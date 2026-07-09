@@ -1,8 +1,8 @@
 {
   "name": "oracle-suite",
   "displayName": "ORACLE Suite",
-  "version": "1.2.0",
-  "description": "A working-session toolkit by Not Rest Inc.: ORACLE session intake, a deep researcher, a market researcher, a step-by-step planner, a copy-paste runbook builder, an adversarial critic, a director that chains them into pipelines, a session-end handoff, and fable-mode \u2014 a verification-first working-discipline contract auto-anchored into every session by the SessionStart hook \u2014 bookended by a shared CLAUDE.md foundation so sessions stay continuous \u2014 with automated continuity hooks (SessionStart resume detection + fable-discipline anchor, PreCompact handoff reminder) and a live cross-session handoff line.",
+  "version": "1.3.0",
+  "description": "A working-session toolkit by Not Rest Inc.: ORACLE session intake, a deep researcher, a market researcher, a step-by-step planner, a copy-paste runbook builder, an adversarial critic, a director that chains them into pipelines, a fable-director that seats and rotates the '3 devs and a relay' multi-session dev arrangement (a metered director + flat lanes over per-lane blackboard files with token-watch wakes), a session-end handoff, and fable-mode \u2014 a verification-first working-discipline contract auto-anchored into every session by the SessionStart hook \u2014 bookended by a shared CLAUDE.md foundation so sessions stay continuous \u2014 with automated continuity hooks (SessionStart resume detection + fable-discipline anchor + FABLE-COORD blackboard detection, PreCompact handoff reminder) and a live cross-session handoff line.",
   "author": {
     "name": "Not Rest Inc.",
     "url": "https://do.not.rest"
@@ -18,6 +18,7 @@
     "critique",
     "red-team",
     "orchestration",
+    "multi-agent",
     "productivity",
     "sessions"
   ],

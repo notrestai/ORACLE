@@ -1,5 +1,27 @@
 # Changelog — ORACLE Suite
 
+## 1.3.0 — 2026-07-09
+
+**The orchestration release: the fable arrangement, packaged for any repo.**
+
+- **`fable-director` skill** — seats and operates **"3 DEVS AND A RELAY"**: a metered director
+  (`claude-fable-5`, latest-Opus fallback via a probing launcher) orchestrating flat dev/QC
+  lanes through per-lane `FABLE-COORD*.md` blackboard files with end-anchored token-watch
+  wakes. Three modes: **SEAT** (rotation landing), **OPERATE** (burst agenda + ship gate +
+  rotation ritual with the observed rotation-killers checklist), **BOOTSTRAP** (a FILE-ONLY
+  scaffolder stands up a new repo in minutes — every blackboard with correct absolute paths,
+  tokens named for your sessions, the QC refuter checklist baked in). Bundles the protocol of
+  record (`PLAN-FABLE-DIRECTOR-V4.md`: the PING system, edit authority, QC relay charter,
+  rotation ritual) — a per-project copy in the repo root stays authoritative over the bundle.
+  Battle-tested on tell.rest (5 shipped rounds, 6 bugs fixed, 2 live rotations). Distinct from
+  `director`, which chains *skills*; this one orchestrates *sessions*.
+- **Packaging optimizations over the field version:** the kickoff prompt is
+  project-parameterized (the scaffolder stamps the repo name into `<PROJECT>` on first copy),
+  stale section cross-references fixed (DIRECTOR RESUME + edit-authority pointers), and the
+  QC watch token generalized to the QC lane's own session name.
+- **SessionStart hook now detects `FABLE-COORD*.md` blackboards** and nudges seating the
+  fable-director — alongside the existing START-HERE/HANDOFF resume detection.
+
 ## 1.2.0 — 2026-07-08
 
 **The discipline release: reliable working posture, bolted to the metal.**
