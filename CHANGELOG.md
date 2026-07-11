@@ -1,5 +1,17 @@
 # Changelog — ORACLE Suite
 
+## 2.3.0 — 2026-07-10
+
+**introspect v1.1: the two-layer snapshot — readable without losing its teeth.**
+
+- Snapshots now seal TWO layers at once: the unchanged 6–10 token spine (deterministic
+  scoring; plain single words preferred — the run-3 ledger lesson) plus ★-salience marks
+  and a 3–8-word gloss per concept — the human-readable state description users asked for
+  ("I can't read a bare word list"). Glosses are sealed with the tokens but never
+  mechanically scored, so the confabulation-resistance of the measurement layer is
+  untouched and prior-run ledgers stay directly comparable.
+- Ledger format gains a `glossed:` line; `score_snapshot.py` unchanged.
+
 ## 2.2.0 — 2026-07-10
 
 **introspect + game-forge: an instrument for the reportable workspace, and a maker with a playtest gate.**

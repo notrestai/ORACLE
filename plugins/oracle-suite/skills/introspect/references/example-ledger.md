@@ -42,3 +42,8 @@ The three unsaid concepts were process- and audience-level: the near-miss phrase
 touchstone, never mentioned in the output), and the awareness that this work becomes
 tutorial material. The paper's claim that workspaces hold words the model never says has
 a black-box echo here — reportable, influential, absent from the artifact.
+
+### Format note (v1.1, 2026-07-10)
+Runs from v1.1 add a `glossed:` line — ★/· salience plus a 3–8 word gloss per concept
+(the human-readable layer, sealed with the tokens but never mechanically scored). The
+token spine, scorer, and metrics are unchanged, so runs remain comparable across versions.

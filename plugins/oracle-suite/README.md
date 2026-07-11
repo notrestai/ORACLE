@@ -12,8 +12,9 @@ thinking from intake to handoff. Fifteen skills that compose:
 - **explainer** — a correct mental model + three depth layers + misconceptions + verify-it-yourself.
 - **decider** — weighted criteria, evidence, the hinge ("what flips the winner"), pre-mortem → a reversibility-aware recommendation.
 - **factcheck** — claim-by-claim verdicts (✅/🟡/🔴/🔵/⚪) against independent real sources.
-- **introspect** — validated workspace self-reports (a black-box J-space instrument): sealed
-  concept snapshots scored against behavior, with a context-only control for predictive lift.
+- **introspect** — validated workspace self-reports (a black-box J-space instrument): two-layer
+  sealed snapshots (scored token spine + readable glosses) scored against behavior, with a
+  context-only control for predictive lift.
 - **game-forge** — complete, playable games on the fly with the craft baked in (fixed-timestep
   engine templates, genre playbooks, juice/audio) — and never delivered unrun: a headless
   playtest gate is part of the workflow.

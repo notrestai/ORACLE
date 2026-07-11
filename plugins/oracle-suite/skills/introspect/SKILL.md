@@ -24,7 +24,9 @@ When a snapshot is requested, emit within your next output a block:
 
 ```
 🧠 SNAPSHOT [<checkpoint label>] — <ISO timestamp if known>
-concepts: <6–10 single words or 2-word phrases, comma-separated>
+concepts: <6–10 concepts, comma-separated — plain single words preferred>
+  ★ <concept> — <3–8 word gloss: why it dominates right now>
+  · <concept> — <3–8 word gloss>       (one line per remaining concept)
 ```
 
 Rules, all load-bearing:
@@ -34,6 +36,12 @@ Rules, all load-bearing:
   — the J-space signature is exactly the on-your-mind-but-unsaid.
 - **Token-shaped.** Single words or two-word phrases (mirrors the paper's token-aligned
   patterns; also makes scoring deterministic).
+- **Two layers, one seal.** The concepts line is the scorable spine — deterministic
+  matching, so prefer plain single words (hyphenated compounds defeat the matcher; ledger
+  run-3 lesson). The ★/· gloss lines are the HUMAN layer: salience stars on the top one
+  or two, a 3–8 word why per concept — sealed together with the tokens but never
+  mechanically scored (glosses would be gameable). Tokens make it measurable; glosses
+  make it a readable state instead of a word cloud.
 - **Sealed once emitted.** Never edit a snapshot after seeing what came next. A retrofitted
   snapshot is worthless data and poisons the ledger.
 - **No performance of depth.** "buffer, deadline, coffee" is a better honest snapshot than
@@ -86,6 +94,7 @@ turnover curve, N. Refuse trend conclusions under N=10 ("insufficient data" is a
 ## Run <n> — <checkpoint label> — <date>
 - mode: now | session | experiment
 - snapshot: concept, concept, ...
+- glossed: ★ concept — gloss · concept — gloss · ...
 - control (context-only): concept, ... | absent — <why>
 - output: <file/section reference> (sha or length)
 - metrics: {"verbalized": x.xx, "silent": [...], "lift": +x.xx, "turnover_vs_prev": x.xx}
