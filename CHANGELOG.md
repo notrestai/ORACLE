@@ -1,5 +1,19 @@
 # Changelog — ORACLE Suite
 
+## 2.4.0 — 2026-07-10
+
+**gpt: the cross-model lane as a first-class skill.**
+
+- **New skill: `gpt`** — one-line access to the GPT-5.6 family as a second-opinion
+  subagent (Codex CLI on the user's ChatGPT account; no API billing): thinking-level
+  control (`--think minimal|low|medium|high` → `model_reasoning_effort`, flag verified
+  against codex-cli 0.144.1 with the header echo as proof), `--vs` blind comparisons
+  (Claude's answer sealed to disk BEFORE GPT is called), `--here` repo-aware runs behind
+  a secrets check, and empty-dir isolation by default (codex is agentic — it reads cwd).
+  Hard boundaries baked in: `[model-opinion]` never counts as a source; prompts leave the
+  machine, so no secrets. Born from introspect Run 5 — the suite's first cross-family
+  predictive-lift control (+0.50 vs gpt-5.6-sol).
+
 ## 2.3.0 — 2026-07-10
 
 **introspect v1.1: the two-layer snapshot — readable without losing its teeth.**
