@@ -25,6 +25,8 @@ A working-session toolkit — structured thinking from intake to handoff, built 
 | **explainer** | Layered understanding of any topic — a correct mental model, plain → working → expert layers, the standard misconceptions, verify-it-yourself checks. |
 | **decider** | Structures any decision — weighted criteria, evidence per option, sensitivity ("which assumption flips the winner"), pre-mortem, recommendation with reversibility framing. |
 | **factcheck** | Claim-by-claim verification against real sources — ✅ CONFIRMED / 🟡 PLAUSIBLE / 🔴 REFUTED / 🔵 MISLEADING / ⚪ UNVERIFIABLE, with daisy-chained sources detected. |
+| **introspect** | Validated workspace self-reports — a black-box instrument inspired by Anthropic's J-space research: sealed concept snapshots scored against subsequent behavior (verbalized / silent / turnover) with predictive lift vs a context-only control agent. Ships with a real example ledger. |
+| **game-forge** | Complete playable games from a short request — fixed-timestep engine templates (browser + pygame), genre playbooks, juice/audio references, and a hard playtest gate: no game ships unrun. |
 | **director** | Chains the other skills into a pipeline (e.g. `marketresearcher → critic → stepbystep`). |
 | **fable-director** | Seats and runs the **"3 DEVS AND A RELAY"** multi-session dev arrangement — a metered Fable/Opus director that applies all code, flat Opus dev/QC lanes handing EDIT SPECS, per-lane blackboard files with token-watch wakes, a QC refuter relay, and a self-carrying rotation ritual. Bundles the V4 protocol of record + a repo scaffolder. Invoke with `/fable-director`. |
 | **sessionend** | Captures session state into START-HERE / HANDOFF / STATE / CLAUDE.md so the next session resumes seamlessly. |

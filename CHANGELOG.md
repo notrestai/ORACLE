@@ -1,5 +1,21 @@
 # Changelog — ORACLE Suite
 
+## 2.2.0 — 2026-07-10
+
+**introspect + game-forge: an instrument for the reportable workspace, and a maker with a playtest gate.**
+
+- **New skill: `introspect`** — validated workspace self-reports, inspired by Anthropic's
+  J-space/global-workspace paper (2026-07-06): fast sealed concept snapshots at checkpoints,
+  scored deterministically (`scripts/score_snapshot.py`) for verbalized rate, the silent set,
+  turnover, and **predictive lift vs a context-only control agent** — the honest black-box
+  shadow of "privileged introspective access." Ships with a REAL first-run example ledger
+  (lift +0.50 at N=1, integrity caveats recorded). Measures report validity; observes no
+  activations, and says so on every artifact.
+- **New skill: `game-forge`** (authored by Ethan in the desktop app, folded into the suite) —
+  complete playable games on the fly: fixed-timestep engine templates (browser + pygame), genre
+  playbooks, juice/audio references — and the suite's own rule applied to play: **no game ships
+  unrun** (bundled headless playtest script). Portability notes added for non-claude.ai harnesses.
+
 ## 2.1.0 — 2026-07-09
 
 **fable-mode v2: the full Fable behavioral contract.**

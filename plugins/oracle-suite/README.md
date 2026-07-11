@@ -1,7 +1,7 @@
 # ORACLE Suite
 
 A working-session toolkit for Claude Code by [Not Rest Inc.](https://do.not.rest) — structured
-thinking from intake to handoff. Thirteen skills that compose:
+thinking from intake to handoff. Fifteen skills that compose:
 
 - **oracle** — session intake (the ORACLE six-question setup) + loads/scaffolds the `CLAUDE.md` foundation. Say "hey oracle" or `/oracle`.
 - **researcher** — multi-pass research → background + decision dossier.
@@ -12,6 +12,11 @@ thinking from intake to handoff. Thirteen skills that compose:
 - **explainer** — a correct mental model + three depth layers + misconceptions + verify-it-yourself.
 - **decider** — weighted criteria, evidence, the hinge ("what flips the winner"), pre-mortem → a reversibility-aware recommendation.
 - **factcheck** — claim-by-claim verdicts (✅/🟡/🔴/🔵/⚪) against independent real sources.
+- **introspect** — validated workspace self-reports (a black-box J-space instrument): sealed
+  concept snapshots scored against behavior, with a context-only control for predictive lift.
+- **game-forge** — complete, playable games on the fly with the craft baked in (fixed-timestep
+  engine templates, genre playbooks, juice/audio) — and never delivered unrun: a headless
+  playtest gate is part of the workflow.
 - **director** — chains the skills into a pipeline (e.g. `researcher → critic → stepbystep`).
 - **fable-director** — seats and runs the "3 DEVS AND A RELAY" multi-session dev arrangement
   (metered director + flat lanes over per-lane blackboard files with token-watch wakes;

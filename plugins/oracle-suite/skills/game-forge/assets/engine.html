@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--
+  GAME FORGE ENGINE TEMPLATE (single-file, no dependencies)
+  A complete, runnable starter that wires up the parts every game needs:
+    - fixed-timestep loop (frame-rate independent physics)
+    - input manager (held + edge-triggered, keyboard + pointer)
+    - state machine (menu / play / over)
+    - procedural WebAudio sound (no asset files)
+    - particles, screen shake, floating text (juice)
+  The demo game is a minimal "dodge the falling blocks" so you can see every
+  system working. REPLACE the marked GAME LOGIC sections with your game; keep
+  the loop, input, audio, and juice helpers. Everything stays in this one file.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Game</title>
+<style>
+  html,body{margin:0;height:100%;background:#0d0f1a;overflow:hidden;
+    font-family:system-ui,sans-serif;-webkit-user-select:none;user-select:none;touch-action:none}
+  #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  canvas{background:#12162a;max-width:100%;max-height:100%;image-rendering:auto;
+    box-shadow:0 0 60px rgba(0,0,0,.6);border-radius:8px}
+</style>
+</head>
+<body>
+<div id="wrap"><canvas id="c" width="480" height="640"></canvas></div>
+<script>
+(() => {
+'use strict';
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+const W = canvas.width, H = canvas.height;
+
+/* ---------- INPUT MANAGER ---------- */
+const keys = {}, pressed = {};
+const PREVENT = ['Space','ArrowLeft','ArrowRight','ArrowUp','ArrowDown'];
+addEventListener('keydown', e => {
+  if (!keys[e.code]) pressed[e.code] = true;
+  keys[e.code] = true;
+  if (PREVENT.includes(e.code)) e.preventDefault();
+  audioResume();
+});
+addEventListener('keyup', e => { keys[e.code] = false; });
+// pointer/touch → track x and a "tap" edge, so it works on mobile too
+let pointerX = W/2, pointerDown = false, pointerTapped = false;
+function pointerPos(e){ const r=canvas.getBoundingClientRect();
+  const cx=(e.touches?e.touches[0].clientX:e.clientX);
+  return (cx - r.left) / r.width * W; }
+canvas.addEventListener('pointerdown', e=>{ pointerDown=true; pointerTapped=true;
+  pointerX=pointerPos(e); audioResume(); e.preventDefault(); });
+canvas.addEventListener('pointermove', e=>{ pointerX=pointerPos(e); });
+addEventListener('pointerup', ()=>{ pointerDown=false; });
+function endStep(){ for (const k in pressed) pressed[k]=false; pointerTapped=false; }
+
+/* ---------- AUDIO (procedural, no files) ---------- */
+let actx;
+function audioResume(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)();
+  if(actx.state==='suspended') actx.resume(); }
+function beep({freq=440,freq2=freq,type='square',dur=0.12,vol=0.2}={}){
+  if(!actx) return; const t=actx.currentTime;
+  const o=actx.createOscillator(), g=actx.createGain();
+  o.type=type; o.frequency.setValueAtTime(freq,t);
+  o.frequency.exponentialRampToValueAtTime(Math.max(1,freq2),t+dur);
+  g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.connect(g).connect(actx.destination); o.start(t); o.stop(t+dur);
+}
+
+/* ---------- JUICE: particles, shake, floating text ---------- */
+const parts = Array.from({length:200},()=>({life:0}));
+function spawnParticles(x,y,color,n=12,spd=180){
+  for(let i=0;i<n;i++){ const p=parts.find(p=>p.life<=0); if(!p)break;
+    const a=Math.random()*Math.PI*2, s=spd*(0.3+Math.random());
+    p.x=x;p.y=y;p.vx=Math.cos(a)*s;p.vy=Math.sin(a)*s;
+    p.life=p.max=0.4+Math.random()*0.4;p.color=color;p.size=2+Math.random()*3; }
+}
+let shake=0;
+const floats=[];
+function floatText(x,y,txt,color='#fff'){ floats.push({x,y,txt,color,life:1}); }
+
+/* ---------- GAME STATE ---------- */
+let state='menu';   // 'menu' | 'play' | 'over'
+let score=0, best=0;
+// --- GAME LOGIC state (replace for your game) ---
+let player, blocks, spawnTimer;
+function reset(){
+  player={x:W/2,y:H-70,w:40,h:16,vx:0};
+  blocks=[]; spawnTimer=0; score=0;
+}
+
+/* ---------- UPDATE (fixed dt) ---------- */
+function update(dt){
+  // juice updates run in every state
+  for(const p of parts){ if(p.life>0){ p.life-=dt; p.x+=p.vx*dt; p.y+=p.vy*dt; p.vy+=400*dt; } }
+  for(let i=floats.length-1;i>=0;i--){ const f=floats[i]; f.life-=dt*1.4; f.y-=40*dt; if(f.life<=0) floats.splice(i,1); }
+  shake*=Math.pow(0.001,dt);
+
+  if(state==='menu'){ if(pressed['Space']||pointerTapped){ reset(); state='play'; beep({freq:440,freq2:660,dur:0.1}); } return; }
+  if(state==='over'){ if(pressed['Space']||pointerTapped){ reset(); state='play'; beep({freq:440,freq2:660,dur:0.1}); } return; }
+
+  // --- GAME LOGIC update (replace for your game) ---
+  // movement: keyboard (accelerate) OR pointer (spring toward finger) — keep BOTH
+  // input paths when you replace this, so the game works on desktop and mobile.
+  const accel = 900, pointerSpring = 36;   // spring: fraction/sec pulled toward pointer
+  let want=0;
+  if(keys['ArrowLeft']) want=-1; if(keys['ArrowRight']) want=1;
+  if(pointerDown){ player.vx += (pointerX-player.x)*pointerSpring*dt; }
+  player.vx += want*accel*dt;
+  player.vx *= Math.pow(0.0005,dt);         // friction
+  player.x += player.vx*dt;
+  player.x = Math.max(player.w/2, Math.min(W-player.w/2, player.x));
+
+  // spawn falling blocks, ramp difficulty with score
+  spawnTimer-=dt;
+  const rate = Math.max(0.35, 0.9 - score*0.01);
+  if(spawnTimer<=0){ spawnTimer=rate;
+    blocks.push({x:20+Math.random()*(W-40), y:-20, w:24, h:24, v:120+score*4+Math.random()*60}); }
+
+  for(let i=blocks.length-1;i>=0;i--){ const b=blocks[i]; b.y+=b.v*dt;
+    // collision (AABB, forgiving)
+    if(Math.abs(b.x-player.x)<(b.w/2+player.w/2-4) && Math.abs(b.y-player.y)<(b.h/2+player.h/2-2)){
+      // hit → game over
+      spawnParticles(player.x,player.y,'#ff5470',24,260); shake=14; beep({freq:160,freq2:60,type:'square',dur:0.25,vol:0.3});
+      best=Math.max(best,score); state='over'; return;
+    }
+    if(b.y>H+30){ blocks.splice(i,1); score++; floatText(player.x,player.y-24,'+1','#7cf'); beep({freq:700,freq2:900,dur:0.05,vol:0.12}); if(score>0&&score%10===0) shake=6; }
+  }
+}
+
+/* ---------- RENDER ---------- */
+function render(){
+  ctx.clearRect(0,0,W,H);
+  // background: subtle moving grid
+  ctx.save();
+  const sx=(Math.random()*2-1)*shake, sy=(Math.random()*2-1)*shake;
+  ctx.translate(sx,sy);
+
+  ctx.strokeStyle='rgba(255,255,255,0.04)'; ctx.lineWidth=1;
+  for(let x=0;x<W;x+=32){ ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke(); }
+  for(let y=0;y<H;y+=32){ ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke(); }
+
+  if(state==='play'||state==='over'){
+    // blocks
+    for(const b of blocks){ ctx.fillStyle='#ffc23c'; roundRect(b.x-b.w/2,b.y-b.h/2,b.w,b.h,5); ctx.fill(); }
+    // player
+    ctx.fillStyle='#4de1c1'; ctx.shadowColor='#4de1c1'; ctx.shadowBlur=12;
+    roundRect(player.x-player.w/2,player.y-player.h/2,player.w,player.h,6); ctx.fill();
+    ctx.shadowBlur=0;
+  }
+  // particles
+  for(const p of parts){ if(p.life>0){ ctx.globalAlpha=Math.max(0,p.life/p.max); ctx.fillStyle=p.color;
+    ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2); ctx.fill(); } }
+  ctx.globalAlpha=1;
+  // floating text
+  for(const f of floats){ ctx.globalAlpha=Math.max(0,f.life); ctx.fillStyle=f.color;
+    ctx.font='bold 20px system-ui'; ctx.textAlign='center'; ctx.fillText(f.txt,f.x,f.y); }
+  ctx.globalAlpha=1;
+
+  // HUD / screens
+  ctx.fillStyle='#fff'; ctx.textAlign='left'; ctx.font='bold 22px system-ui';
+  if(state==='play') ctx.fillText('Score '+score, 16, 34);
+  ctx.restore();
+
+  ctx.textAlign='center';
+  if(state==='menu'){ title('DODGER'); sub('Move with ← → or drag.  Dodge the blocks.'); tap('Press Space / tap to start'); }
+  if(state==='over'){ title('GAME OVER'); sub('Score '+score+'    Best '+best); tap('Press Space / tap to retry'); }
+}
+function title(t){ ctx.fillStyle='#fff'; ctx.font='bold 44px system-ui'; ctx.fillText(t,W/2,H/2-30); }
+function sub(t){ ctx.fillStyle='#9fb3d1'; ctx.font='18px system-ui'; ctx.fillText(t,W/2,H/2+6); }
+function tap(t){ ctx.fillStyle='#4de1c1'; ctx.font='16px system-ui'; ctx.fillText(t,W/2,H/2+42); }
+function roundRect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y);
+  ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r);
+  ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+/* ---------- FIXED-TIMESTEP LOOP ---------- */
+const STEP=1/60; let last=performance.now(), acc=0;
+function frame(now){
+  acc += Math.min((now-last)/1000, 0.25); last=now;
+  let steps=0;
+  while(acc>=STEP && steps<5){ update(STEP); endStep(); acc-=STEP; steps++; }
+  if(steps===5) acc=0; // cap hit: drop the backlog, or the game runs in slow motion forever
+  render();
+  requestAnimationFrame(frame);
+}
+reset(); state='menu'; requestAnimationFrame(frame);
+
+// expose a hook so an automated playtest can press keys/read state
+window.__game = { press:c=>{keys[c]=true;pressed[c]=true;setTimeout(()=>keys[c]=false,80);},
+  get:()=>({state,score}) };
+})();
+</script>
+</body>
+</html>
