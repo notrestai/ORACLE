@@ -1,100 +1,110 @@
 ---
 name: gpt
-description: Ask GPT as a second-opinion subagent — one-shot questions to the GPT-5.6 family via Codex CLI on the user's ChatGPT account, at a chosen thinking level (--think minimal|low|medium|high), with --vs blind-comparison mode (Claude seals its own answer BEFORE GPT speaks, then both are compared) and --here for repo-aware runs. Use on /gpt, "ask gpt", "ask chatgpt", "second opinion from gpt", "what does gpt think", "compare answers with gpt". Opinions, never sources — answers carry [model-opinion] and zero evidentiary weight; prompts leave the machine to OpenAI, so never include secrets or sensitive code.
+description: Chat-first GPT subagent — /gpt simply talks to a persistent GPT-5.6 conversation (Codex CLI on the user's ChatGPT account). First use runs a 2-question guided setup (thinking level + how agentic, each plainly explained); after that every /gpt message continues the chat with the saved settings. Extras when asked — --once one-shots, --task verified background jobs, --vs blind comparisons, --new to redo setup — and a no-questions --setup flag path so orchestrators (fable-director) can stand the lane up unattended. Use on /gpt, "ask gpt", "chat with gpt", "continue the gpt chat", "leave gpt a task", "gpt second opinion". Opinions never sources ([model-opinion]); prompts leave the machine to OpenAI — no secrets, ever.
 ---
 
-# gpt — the cross-model second-opinion lane
+# gpt — the chat-first cross-model lane
 
-One line of bash turns the user's ChatGPT subscription into a callable subagent. This
-skill wraps that lane with the discipline that makes a rival model useful instead of
-noisy: verified flags, sealed-order comparisons, isolation defaults, and a hard
-opinion-not-source boundary. Born from introspect's Run 5, where a GPT context-only
-control produced the suite's first cross-family predictive-lift measurement.
+`/gpt <anything>` is a conversation with GPT that remembers. One setup moment, then it's
+just talking. Everything agentic is opt-in, explained, and verified before it's trusted.
 
-## Prerequisites (probe, don't assume)
+## First use — the 2-question setup
 
-`which codex` and `ls ~/.codex/auth.json` — Codex CLI installed and logged in via the
-user's ChatGPT account. Missing → hand the user this block and stop:
+No profile at `<scratch>/gpt-lane/chats/main.profile` → run setup BEFORE sending anything.
+Ask both questions in one round (AskUserQuestion where available; plain numbered questions
+otherwise), each option in plain words:
+
+**Q1 — Thinking level** (how hard GPT reasons per reply):
+- **low** — fast and cheap; small talk, quick lookups, routine turns.
+- **medium** (recommended) — normal questions; the sensible default.
+- **high** — slow, heavy on your plan quota; keep for genuinely hard reasoning.
+
+**Q2 — How agentic may GPT be?**
+- **chat-only** (recommended) — GPT answers in text; writes nothing, reads nothing.
+- **worker** — you can also hand it background jobs (`--task`): it writes real files in
+  its own empty workspace, and Claude verifies every deliverable before relaying.
+- **repo-aware** — additionally allows `--here` runs where GPT reads the current
+  directory; every such run is preceded by a stated secrets check.
+
+Save both answers to `main.profile` (`LEVEL=medium\nMODE=worker`), send the first
+message, parse `session id: <uuid>` from the header, save to `main.id`. Greet with one
+line stating the active settings so the user knows what they got.
+
+**Non-interactive setup (orchestrators, unattended sessions):** `--setup think=<level>
+mode=<chat-only|worker|repo-aware>` skips the questionnaire — REQUIRED form for
+fable-director and any auto-mode session; never block an unattended session on questions.
+
+## Every message after — the resume loop
 
 ```bash
-npm install -g @openai/codex && codex login && codex exec "reply with exactly: READY"
+cd <scratch>/gpt-lane && \
+codex exec --sandbox read-only -c model_reasoning_effort="$LEVEL" \
+  resume "$(cat chats/main.id)" --skip-git-repo-check \
+  "<MESSAGE>" </dev/null 2>&1
 ```
 
-Login is browser-OAuth on the user's side; credentials never enter the session.
+Relay the answer quoted + `[model-opinion]`, tokens-used line included. `--chat <name>`
+runs parallel named conversations (own `.id`/`.profile`). `--new` re-runs setup. If the
+id file is lost, `resume --last` recovers the most recent session — say you did.
 
-## The command (verified against codex-cli 0.144.1)
+## Extras (each one sentence to invoke, details on use)
 
-Run in an EMPTY scratch directory by default — codex is agentic and reads its cwd, so
-isolation is what keeps a "second opinion" from quietly becoming "read the repo":
+- **`--once "<q>"`** — a one-shot outside any chat: fresh `codex exec`, no session saved.
+  The director-safe form. Optional `--think <level>` overrides the profile for this call.
+- **`--task <slug> "<job>"`** (worker/repo-aware profiles only) — background job in a
+  fresh EMPTY workspace `<scratch>/gpt-work/<slug>/` with `--sandbox workspace-write`,
+  spawned `run_in_background`. The prompt MUST name deliverable files. On the completion
+  notification: read the deliverables and check them — content, not existence — before
+  relaying as `[model-artifact]`. ⚠ Hardened after GPT's own review of this design: never
+  feed the workspace untrusted files (embedded instructions steer the worker), and treat
+  its network posture as unknown [unverified] — nothing secret goes in, period.
+  Follow-ups resume the task's session in the same workspace.
+- **`--vs "<question>"`** — blind comparison, reproducible: write the canonical question
+  to `question.md` FIRST; write YOUR complete answer next (sealed, before GPT sees
+  anything); send GPT the file's text verbatim; present both + a delta verdict (agreement
+  = comfort not evidence; note that you judged the answers knowing which was whose —
+  position bias disclosed, also per GPT's review).
+- **`--here "<q>"`** (repo-aware profile only) — run in the current directory after a
+  one-line stated secrets check (no .env/keys/credentials present). Never in a directory
+  holding material the prompt must stay blind to (ledgers, answer keys).
 
-```bash
-mkdir -p <scratch>/gpt-lane && cd <scratch>/gpt-lane && \
-codex exec --skip-git-repo-check --sandbox read-only \
-  -c model_reasoning_effort="<LEVEL>" \
-  "<PROMPT>" </dev/null 2>&1
-```
+## For directors and orchestrators (fable-director)
 
-- The header echoes `model:` and `reasoning effort:` — CHECK both took effect; a silently
-  ignored flag is a wrong experiment. The answer follows the `codex` marker line; report
-  `tokens used` to the user (quota awareness).
-- `--skip-git-repo-check` is mandatory outside trusted dirs; `</dev/null` prevents the
-  stdin wait. Both failure modes were observed live before landing here.
-- Model override: add `-m <model>` only if the user names a variant; default resolves to
-  the account's GPT-5.6 family model.
+This lane is NOT a metered subagent — it shells to Codex CLI on the OWNER'S ChatGPT plan,
+so the director's never-spawn-subagents rule does not forbid it. Sanctioned uses: a
+`--once` second opinion on a risky EDIT SPEC before applying; one extra refuter voice on
+a QC brief. Always `--once`, low/medium thinking, empty dir, `--setup` flags not
+questions. Never as an explorer — the lanes are the explorers.
 
-## Thinking levels (`--think`, default medium)
+## Verified facts (codex-cli 0.144.1 — don't relearn these)
 
-Maps to `model_reasoning_effort`: **minimal** (classification, extraction, one-liners) ·
-**low** (routine questions) · **medium** (default — real questions) · **high** (hard
-reasoning, math, tricky design tradeoffs — noticeably slower and heavier on the user's
-plan quota). Pass through exactly; the header echo is the proof it applied.
+- Effort ladder: **low | medium | high**. `minimal` → live API 400 on the 5.6 family.
+  The run header echoes `reasoning effort:` — that echo is the proof the level applied.
+- Resume flag ORDER: `--sandbox`/`-c` BEFORE the `resume` subcommand,
+  `--skip-git-repo-check` after; other placements rejected. Memory across invocations
+  verified live (token planted turn 1, recalled post-exit).
+- `--skip-git-repo-check` mandatory outside trusted dirs; `</dev/null` kills the stdin
+  wait; codex agentically reads its cwd → empty-dir isolation is the default everywhere.
+- Session id: `session id: <uuid>` in the header. Answer follows the `codex` marker;
+  `tokens used` follows the answer.
 
-## Modes
+## Hard boundaries (unchanged, load-bearing)
 
-**Default — one-shot opinion.** Send the question, relay the answer clearly quoted and
-labeled `[model-opinion]`, with the tokens-used line. No editorializing between the
-user and the quote; your commentary goes after, separately.
-
-**`--vs` — blind comparison (the honest way to disagree).** Order is the integrity:
-1. Write YOUR complete answer to a scratch file FIRST — sealed, before GPT is called.
-2. Call GPT with the same question (never with your answer).
-3. Present both answers side by side, then a short delta verdict: where they agree
-   (likely robust), where they diverge (flag which one you'd bet on and why), what
-   neither addressed. Agreement between two models is comfort, not evidence.
-
-**`--here` — repo-aware run (explicit opt-in only).** Run in the current directory so
-GPT can read the code it's opining on. ⚠ Before running: confirm the directory holds no
-secrets (.env, keys, credentials) — codex reads files and sends content to OpenAI. Never
-use `--here` in a directory containing material the prompt is supposed to be blind to
-(introspection ledgers, answer keys, unpublished dossiers).
-
-## Hard boundaries (each one load-bearing)
-
-- **Opinion ≠ source.** In factcheck/researcher flows a GPT answer is `[model-opinion]`
-  with zero evidentiary weight — models agreeing is not two sources, it is one guess
-  echoed. Real verification still requires real documents.
-- **Prompts leave the machine.** Everything in the prompt (and in `--here` mode, file
-  contents) goes to OpenAI's servers under the user's account. No secrets, no keys, no
-  private data the user hasn't already decided to share there.
-- **Quota is the user's.** Each call draws the ChatGPT plan's Codex limits. Batch
-  questions where sensible; say when a high-effort call is worth it and when it isn't.
-- **Failure modes:** untrusted-dir refusal → the skip flag; stdin hang → `</dev/null`;
-  auth expired → the user re-runs `codex login` (never attempt auth repair yourself);
-  unknown `-m` model → drop the override and say so.
+- **Opinion ≠ source** — [model-opinion] carries zero evidentiary weight in
+  factcheck/researcher; two models agreeing is one guess echoed.
+- **Prompts leave the machine** — and in --here/--task, file contents do too. No secrets,
+  no keys, nothing the user hasn't already decided to share with OpenAI.
+- **Quota is the user's** — say when high effort is worth it and when it isn't.
+- **Auth**: expired login → the user re-runs `codex login`; never attempt auth repair.
+  Missing CLI → hand the install block and stop:
+  `npm install -g @openai/codex && codex login && codex exec "reply with exactly: READY"`
 
 ## Self-check before finishing
 
-- Header echo matched the requested effort (and model, if overridden).
-- The answer is quoted faithfully and labeled `[model-opinion]`; tokens reported.
-- `--vs`: your answer was provably sealed before the GPT call (file written first).
-- `--here`: the secrets check happened and is stated in one line.
-- Nothing in the prompt was sensitive; if the user asked you to send something that is,
-  you flagged it instead of sending.
-
-## Notes
-
-- Introspect uses this lane for cross-model context-only controls (empty dir, always).
-- Critic `--panel` and decider can each take one GPT seat — a genuinely foreign prior is
-  worth more than another Claude voice; label it like any other panelist.
-- Headless/cloud sessions have no Codex CLI — that environment needs the API-key route
-  (an MCP server or script); different setup, different billing, not this skill.
+- Profile honored: header's effort echo matches the saved LEVEL; mode gates respected
+  (no --task on chat-only, no --here off repo-aware).
+- Chat integrity: header `session id:` matches the stored id (or --last recovery stated).
+- Task deliverables read and content-checked before "done"; artifacts labeled.
+- --vs order provable: question.md, then your sealed answer, then the GPT call.
+- Nothing sensitive entered a prompt; setup answers were saved so the user is never
+  re-asked what they already chose.

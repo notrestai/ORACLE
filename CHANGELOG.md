@@ -1,5 +1,28 @@
 # Changelog — ORACLE Suite
 
+## 2.5.0 — 2026-07-10
+
+**gpt goes chat-first: a conversation by default, agentic by explained consent.**
+
+- **/gpt is now simply a persistent conversation.** First use runs a 2-question guided
+  setup — thinking level (low/medium/high, plainly described) and how agentic GPT may be
+  (chat-only / worker / repo-aware) — saved to a profile; every later /gpt message resumes
+  the chat with those settings (continuity live-verified: a token planted in turn 1 was
+  recalled after process exit). One-shots moved behind `--once`.
+- **`--task <slug>`** — background jobs in a dedicated empty workspace (workspace-write):
+  deliverable filenames required up front, completion notification, verify-before-relay —
+  contents read and checked, never exit-code-trusted. First live artifact: GPT's own
+  3-point hostile review of this skill's design; its valid points (canonical `--vs`
+  question file, untrusted-file injection + network-posture warnings, judge-side
+  position-bias disclosure) are folded into this release.
+- **Director wiring:** the lane is scriptable without questions (`--setup think=… mode=…`),
+  and fable-director's never-subagents rule now documents the exception explicitly — gpt
+  bills the owner's ChatGPT plan, not the metered key; sanctioned as `--once` second
+  opinions on risky EDIT SPECS and as an extra QC refuter voice, never as an explorer.
+- **Ladder corrected against the live API:** `minimal` 400s on the gpt-5.6 family — valid
+  tiers are low | medium (default) | high. Resume flag order documented (exec flags BEFORE
+  the resume subcommand).
+
 ## 2.4.0 — 2026-07-10
 
 **gpt: the cross-model lane as a first-class skill.**

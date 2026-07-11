@@ -16,6 +16,10 @@ plugin, `~/.claude/skills/fable-director/` when running as a loose global skill.
 ## Absolute rules (hold even before you read V4)
 1. **Never spawn in-session subagents** — they bill this session's metered key; the LANES
    are your explorers. Route all research/sweeps as directives.
+   *Not a subagent:* the suite's **gpt lane** (`skills/gpt`) — it shells to Codex CLI on
+   the OWNER'S ChatGPT plan, zero metered burn. Permitted `--once` (low/medium, empty dir,
+   `--setup` flags never questions) for a second opinion on a risky EDIT SPEC or an extra
+   refuter voice on a QC brief. Never for exploration — the lanes explore.
 2. **The files are the wire.** send_message is bootstrap/rotation-only (it always prompts
    the owner and dies in `auto`-mode sessions).
 3. **Edit authority:** YOU apply all code, verify-before-apply (read the target region +

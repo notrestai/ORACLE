@@ -18,9 +18,10 @@ thinking from intake to handoff. Sixteen skills that compose:
 - **game-forge** — complete, playable games on the fly with the craft baked in (fixed-timestep
   engine templates, genre playbooks, juice/audio) — and never delivered unrun: a headless
   playtest gate is part of the workflow.
-- **gpt** — the cross-model lane: one-shot GPT-5.6 second opinions at a chosen thinking level
-  (--think), blind --vs comparisons (Claude seals its answer first), --here repo-aware runs;
-  [model-opinion] labeled, never evidence.
+- **gpt** — chat-first GPT lane: /gpt just talks (persistent, remembered) after a 2-question
+  guided setup (thinking level + how agentic); --once one-shots, --task background jobs with
+  verified deliverables, --vs blind comparisons, --here repo-aware runs; [model-opinion]
+  labeled, never evidence; director-safe by design.
 - **director** — chains the skills into a pipeline (e.g. `researcher → critic → stepbystep`).
 - **fable-director** — seats and runs the "3 DEVS AND A RELAY" multi-session dev arrangement
   (metered director + flat lanes over per-lane blackboard files with token-watch wakes;
