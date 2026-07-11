@@ -1,5 +1,17 @@
 # Changelog — ORACLE Suite
 
+## 2.5.1 — 2026-07-10
+
+**Latency discipline for the gpt lane — measured fast paths.**
+
+- New **Fast paths** section in `gpt`: one-call-per-job contracts (tool named directly +
+  deliverable filename + DONE token — the discovery/execution two-turn split eliminated),
+  the `--img` canned path (low effort, workspace-write, verify + display; **33s wall
+  measured live**), background-by-default for slow jobs, parallel fan-out across
+  workspaces, effort-by-job-type, and lane-selection guidance: native Claude subagents
+  for speed and fan-out, codex for foreign opinions and ChatGPT-plan capabilities — like
+  the built-in imagegen skill discovered live today (photorealistic PNGs, no API key).
+
 ## 2.5.0 — 2026-07-10
 
 **gpt goes chat-first: a conversation by default, agentic by explained consent.**

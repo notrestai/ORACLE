@@ -68,6 +68,28 @@ id file is lost, `resume --last` recovers the most recent session — say you di
   one-line stated secrets check (no .env/keys/credentials present). Never in a directory
   holding material the prompt must stay blind to (ledgers, answer keys).
 
+## Fast paths (latency discipline — measured, not vibes)
+
+Live timings: one-call image = 33s wall; the same job run conversationally = 2 serial
+calls + inspection between them, roughly 3–4× longer. The rules that keep it fast:
+
+- **One call per job.** For any known job, ONE prompt carries the whole contract: name
+  the built-in tool directly ("use your image_gen tool — don't read docs first"), the
+  exact deliverable filename, and the DONE-token reply. Discovery and execution must
+  never be separate turns.
+- **`--img "<prompt>" [out.png]`** — the canned image path: one workspace-write call at
+  LOW effort (pixels need no reasoning), save + DONE contract, verify, display. ~33s.
+- **Background by default for anything slow.** File-producing or >30s-expected jobs run
+  as background tasks (the harness notifies on completion) — the user keeps working;
+  latency becomes invisible, not merely smaller. Foreground is for quick chat turns.
+- **Fan out, don't queue.** N independent jobs = N parallel background tasks, each in
+  its own empty workspace. The CLI is serial per call; the harness is not.
+- **Effort by job, not only profile:** mechanical output (images, conversions,
+  boilerplate) → low; normal questions → profile level; hard reasoning → high on ask.
+- **Right lane for the job:** speed, parallelism, cheap volume → the harness's native
+  Claude subagents; a genuinely foreign prior or ChatGPT-plan capabilities (built-in
+  imagegen) → this lane. Don't pay the bridge tax for work a native subagent does faster.
+
 ## For directors and orchestrators (fable-director)
 
 This lane is NOT a metered subagent — it shells to Codex CLI on the OWNER'S ChatGPT plan,
