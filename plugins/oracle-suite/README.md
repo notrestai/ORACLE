@@ -35,8 +35,8 @@ thinking from intake to handoff. Nineteen skills that compose:
   V4 protocol + repo scaffolder bundled).
 - **sessionend** — writes START-HERE / HANDOFF / STATE / CLAUDE.md for a seamless next session.
 - **fable-mode** — the Fable behavioral contract: the discipline loop + hard rules (incl.
-  subagent model routing — Fable never rides in a subagent; spawned agents get explicit
-  sonnet/opus/haiku by difficulty), consumer-side verification, the outage playbook
+  the offload model policy — Fable never rides in a subagent; every offloaded job runs on
+  explicit Opus, never sonnet/haiku, never forks), consumer-side verification, the outage playbook
   (reroute, stage, never stall), tool-graph craft, and situational profiles — auto-anchored
   into every session by the SessionStart hook.
 

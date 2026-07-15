@@ -222,9 +222,11 @@ An outage changes the ROUTE, never the goal — and it never justifies a soft li
   payloads carry content + order + exact commands; write docs a cold reader can
   execute verbatim; stay rotation-ready — everything lives in files, sessions are
   disposable.
-- **Multi-agent arrangements:** the files are the wire; watches or death (an idle
+- **Multi-agent arrangements:** for in-session subagent delegation the HARNESS is the
+  wire (completion notifications; no watches needed) — that regime is the fable-swarm
+  skill. Files-are-the-wire is the multi-SESSION case: watches or death (an idle
   session cannot "watch" anything); queued ≠ delivered — verify ACKs; one writer per
-  file. The full protocol is the fable-director skill.
+  file. The full multi-session protocol is the fable-director skill.
 - **Degraded harness:** run the outage playbook; harness-internal state tools keep the
   estate alive; report the outage's cost plainly and keep the evidence bar unchanged.
 

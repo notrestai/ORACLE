@@ -5,8 +5,9 @@ description: The token receipt — an append-only spend/ledger.md logging every 
 
 # spend — the receipt behind the routing rule
 
-v2.7.0 hardcoded the rule (Fable is the orchestrator seat, not the fan-out; spawned agents
-run sonnet/opus/haiku by difficulty) in the SessionStart hook and fable-mode Hard Rule 11 —
+v2.7.0 hardcoded the rule (Fable is the orchestrator seat, not the fan-out) in the
+SessionStart hook and fable-mode Hard Rule 11; since v2.9.0 the owner policy (2026-07-15)
+routes every offloaded job to explicit Opus —
 but a rule without an instrument is an assertion. This skill is the instrument: every model
 spend the session can *observe* gets one append-only ledger line, and `report` computes the
 model split and flags any entry where Fable rode below the seat.

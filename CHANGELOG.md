@@ -1,5 +1,27 @@
 # Changelog — ORACLE Suite
 
+## 2.9.1 — 2026-07-15
+
+**The swarm's first live run reviewed its own release — fork loophole closed, ladder residue purged.**
+
+Two concurrent Opus lanes (a QC refuter on fable-swarm's contract, a repo-wide residue sweep)
+ran as the v2.9.0 smoke test; both verified on `claude-opus-4-8` from their transcripts and
+receipted in the spend ledger. Their findings, applied:
+
+- **Fork loophole (CONFIRMED, refuter lane):** the Agent tool IGNORES `model` for
+  `subagent_type: "fork"` — forks always inherit the parent, so a fork from a Fable seat
+  rides Fable while the ledger records the intended opus, invisible to the exit-4 gate.
+  Now banned in fable-swarm's model rule, the SessionStart hook line, director's stage
+  spawns, critic's lens spawns, and the foundation guidance.
+- **Ladder residue (sweep lane, 6 lines / 5 files):** sonnet/haiku-by-difficulty language
+  survived v2.9.0 in the plugin README, introspect's control-arm spawn, director's stage
+  routing + self-check, critic's panel lenses, and spend's own header. All now opus-only,
+  consistent with the owner policy.
+- **Scoping fixes (PLAUSIBLE findings, applied):** fable-director Rule 1's "never spawn
+  subagents" now names its regime (metered-key) and points subscription sessions at
+  fable-swarm; fable-mode's multi-agent profile now says the harness is the wire for
+  in-session delegation and files-are-the-wire is the multi-session case.
+
 ## 2.9.0 — 2026-07-15
 
 **fable-swarm — the fast delegation arrangement + the opus-only offload policy.**

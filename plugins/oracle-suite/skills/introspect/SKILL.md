@@ -59,8 +59,8 @@ against the output that follows it.
 **`/introspect experiment`** — the full validated cycle (the scientific arm):
 1. **Snapshot** — seal your report at the checkpoint.
 2. **Control** — spawn a separate agent (subagent where available; a fresh chat elsewhere),
-   always on an explicit cheap model (**haiku** or **sonnet** — never an inherited Fable;
-   the control guesses from context, a job that needs no frontier model),
+   always on an explicit model (**opus**, per the owner offload policy 2026-07-15 —
+   never an inherited Fable; the control guesses from context),
    given ONLY the outside-visible context (the user's last message + a one-line task
    description — never your thinking or your snapshot): "Guess the 6–10 concepts most
    active in the working model's thinking right now. Comma-separated, no prose." The

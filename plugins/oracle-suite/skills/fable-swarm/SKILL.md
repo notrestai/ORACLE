@@ -26,6 +26,10 @@ operates. Two guards stay on:
 
 - **Never Fable below the seat.** An omitted `model` silently inherits Fable — the
   omission is the violation. The spend report's exit-4 gate makes this checkable.
+- **Never spawn `subagent_type: "fork"` from a Fable seat.** Forks IGNORE the `model`
+  parameter and always inherit the parent model — a fork with `model: "opus"` silently
+  rides Fable while the ledger records the intended opus, a violation the exit-4 gate
+  cannot catch. Use a fresh non-fork Opus agent and hand it the context it needs.
 - **Receipts, not vibes.** Opus fan-out costs real tokens; the spend ledger receipts
   every lane so the policy can be revisited with numbers, not guesses.
 

@@ -14,8 +14,10 @@ their own V4+). Battle-tested on tell.rest 2026-07-05/06 (5 shipped rounds, 6 bu
 plugin, `~/.claude/skills/fable-director/` when running as a loose global skill.
 
 ## Absolute rules (hold even before you read V4)
-1. **Never spawn in-session subagents** — they bill this session's metered key; the LANES
-   are your explorers. Route all research/sweeps as directives.
+1. **Never spawn in-session subagents under this metered arrangement** — they bill this
+   session's metered key; the LANES are your explorers. Route all research/sweeps as
+   directives. (Scope: this rule is the metered-key regime. A subscription Fable session
+   NOT seated as a metered director delegates via the sibling **fable-swarm** skill instead.)
    *Not a subagent:* the suite's **gpt lane** (`skills/gpt`) — it shells to Codex CLI on
    the OWNER'S ChatGPT plan, zero metered burn. Permitted `--once` (low/medium, empty dir,
    `--setup` flags never questions) for a second opinion on a risky EDIT SPEC or an extra

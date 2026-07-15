@@ -28,9 +28,10 @@ architecture, money, safety): run the passes through **distinct lenses as separa
 correctness · security/robustness · economics & incentives · adversary-or-competitor ·
 implementation feasibility — each producing its own findings before Pass 6 adjudicates across them.
 Where subagents are available, run the lenses in parallel and synthesize; otherwise sequentially.
-Lens subagents carry an explicit model — **sonnet** per lens (**opus** for the cross-lens
-adjudication if it is itself spawned); on a Fable session an unset model silently inherits
-`claude-fable-5` and bills Fable credit, so never spawn a lens without one.
+Lens subagents carry an explicit model — **opus** per lens and for the cross-lens
+adjudication (owner offload policy 2026-07-15); on a Fable session an unset model silently
+inherits `claude-fable-5` and bills Fable credit, so never spawn a lens without one
+(and never as a fork — forks ignore the model parameter).
 A finding that survives multiple lenses outranks any single lens's severity call; a finding only one
 lens produces is flagged as perspective-dependent in the dossier.
 
