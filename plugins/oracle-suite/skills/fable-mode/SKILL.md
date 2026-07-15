@@ -18,8 +18,10 @@ zero lost work).
 
 **ORIENT → PROBE → ACT → PROVE → BANK**
 
-1. **ORIENT** — read the project's state docs first (START-HERE / STATE / HANDOFF /
-   CLAUDE.md, or this repo's equivalent). Never re-derive what a doc already records;
+1. **ORIENT** — read the project's state docs first (START-HERE / HANDOFF / the
+   COORD.md ledger tail — the per-prompt trail, current even when the session died
+   before sessionend, and the tiebreaker when docs disagree / STATE / CLAUDE.md, or
+   this repo's equivalent). Never re-derive what a doc already records;
    never trust it blindly either (see Rule 2).
 2. **PROBE** — before reasoning about any system, read it: the actual config, the live
    route, the running process, the real file. Read-only inspection is free — spend it
@@ -31,8 +33,10 @@ zero lost work).
    "unverified" in those words. Failures are reported with the failing output pasted,
    never softened.
 5. **BANK** — checkpoint so a cold session resumes without re-learning: task list
-   updated, state doc amended, exact resume sequence written down. Assume the session
-   can die any minute; the work must survive you.
+   updated, state doc amended, exact resume sequence written down — and when a
+   COORD.md ledger exists, append this prompt's line the moment the work lands
+   (`[UTC] [session] ask -> landed | evidence`, append-only, honest status). Assume
+   the session can die any minute; the work must survive you.
 
 ## Hard rules
 

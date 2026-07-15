@@ -1,5 +1,35 @@
 # Changelog — ORACLE Suite
 
+## 2.11.0 — 2026-07-15
+
+**Comprehensive four-lane swarm review — every cross-reference gap closed.**
+
+Four concurrent Opus review lanes (continuity web · rename seams · model policy · docs/counts)
+audited the whole estate; all transcript-verified on claude-opus-4-8 and receipted in the
+spend ledger. 21 findings, all seat-verified before applying:
+
+- **CRITICAL seam (rename lane): the hook-created COORD.md broke fable-director bootstrap.**
+  The scaffolder's exists-check saw the hook's session-ledger stub and silently SKIPPED
+  writing the SHIP blackboard; MODE DETECT's "no COORD*.md = new project" could never be
+  true. Fixed + fixture-proven: the scaffolder now upgrades a PROTOCOL-less COORD.md in
+  place (preserving its ledger lines), MODE DETECT keys on structure (## PROTOCOL, lane
+  files, kickoff/plan presence — incl. legacy FABLE-COORD*.md), and the scaffolder's ledger
+  stamps now match the hook format ([YYYY-MM-DD HH:MMZ]).
+- **Continuity web (5):** fable-mode's ORIENT now includes the COORD ledger tail (it was
+  the suite's most-read resume order and had the exact omission just fixed in START-HERE);
+  BANK now names the per-prompt ledger append; pre-compact.sh points at the COORD line as
+  the crash cushion when carrying on; the live-line opener + orientation message route
+  through the ledger tail (claims without a ledger line are [unverified]); sessionend's
+  "four files don't overlap" framing now names COORD.md as the fifth, hook-owned tiebreaker.
+- **Model policy:** all 20 skills' spawn directives verified opus-only with fork-bans; the
+  one gap was introspect's shipped example ledger showing a pre-policy haiku control — now
+  carries a dated post-policy note (history preserved, not falsified).
+- **Docs/counts (7):** inner plugin README "Nineteen"→"Twenty" + fable-swarm bullet added;
+  TUTORIAL rewritten to reality (Twenty skills, THREE hooks incl. UserPromptSubmit/COORD,
+  the HANDOFF → COORD tail → STATE → CLAUDE resume order, 8 missing skills added to the
+  which-skill-when table, offload-policy + spend line in Costs, marketplace-cache update
+  caveat); repo CLAUDE.md's stale version string replaced with a non-rotting pointer.
+
 ## 2.10.1 — 2026-07-15
 
 - **START-HERE now routes through the COORD ledger:** the resume read order is

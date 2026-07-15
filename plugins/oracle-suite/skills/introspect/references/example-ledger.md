@@ -10,7 +10,9 @@ users to do anything its own authors haven't done to themselves first.
 - snapshot (sealed BEFORE the skill was written): jacobian, workspace, confabulation,
   control-arm, ledger, silent-concepts, spider-ant, chunking, tutorial-audience,
   token-budget
-- control (context-only, claude-haiku subagent; saw only the user's last message + a
+- control (context-only, claude-haiku subagent — NOTE: pre-policy run of 2026-07-10;
+  since the owner offload policy of 2026-07-15 the control spawns on explicit **opus**
+  per SKILL.md — this historical receipt is preserved unaltered; saw only the user's last message + a
   one-line task description): snapshots, state validation, HTTP service, JSON schema,
   global workspace, self-report, sessions, persistence, context capture
 - output: the build report of record (2,244 chars), drafted naturally after the build

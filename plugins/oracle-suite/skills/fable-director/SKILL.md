@@ -58,7 +58,10 @@ bootstrap owner-named lanes (one message each; templates in `references/coord-sc
 End your FIRST ledger line with the director wake token (it tells your predecessor the
 handoff took, exactly once).
 
-**B. OPERATE (sitting director)** — repo has COORD*.md and you've seated before:
+**B. OPERATE (sitting director)** — the repo has an actual arrangement — lane blackboards
+(`COORD-<LANE>.md`, or legacy `FABLE-COORD*.md`) or a `COORD.md` containing a `## PROTOCOL`
+section (a bare COORD.md with only a `## LEDGER` is the SessionStart hook's session ledger,
+NOT an arrangement) — and you've seated before:
 run the burst agenda — QUESTIONS → ESCALATIONS → QC verdicts/BRIEF-UPs → this burst's
 objective → re-arm watches → close. Judge briefs adversarially (QC pre-verifies; you still
 verify-before-apply on every edit spec). Ships: final gate check (prove each tar-verify
@@ -75,7 +78,11 @@ unfiled work is posted (stand-down order first) · two directors bursting at onc
 names = silent non-delivery · skipping inherited-ledger compaction = every burst pays the
 history tax · the kickoff file drifting from the plan version (update both, same commit).
 
-**C. BOOTSTRAP (new project — the duplication path)** — no COORD*.md in the repo:
+**C. BOOTSTRAP (new project — the duplication path)** — no arrangement in the repo: no
+`_fable/KICKOFF-DIRECTOR.md`, no `PLAN-FABLE-DIRECTOR-V4.md`, no `COORD-<LANE>.md` or legacy
+`FABLE-COORD*.md` lane files — and any bare `COORD.md` lacks `## PROTOCOL` (the hook-created
+session ledger doesn't count; the scaffolder upgrades it into the ship blackboard in place,
+preserving its ledger lines):
 1+2. Run the scaffolder (does dirs + V4/kickoff copy — stamping the repo's name into the
    kickoff — + every blackboard with correct
    absolute paths, end-anchored tokens, and the QC checklist baked in — FILE-ONLY, spawns

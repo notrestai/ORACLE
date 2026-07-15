@@ -14,8 +14,8 @@ Last updated: 2026-07-15
   switch re-reads the context cold. A model change is a subagent or a handoff.
 
 ## Project
-- This repo IS the ORACLE suite marketplace: `plugins/oracle-suite/` (20 skills,
-  v2.9.0), manifest at `plugins/oracle-suite/.claude-plugin/plugin.json`, marketplace
+- This repo IS the ORACLE suite marketplace: `plugins/oracle-suite/` (20 skills;
+  current version lives in plugin.json), manifest at `plugins/oracle-suite/.claude-plugin/plugin.json`, marketplace
   manifest at `.claude-plugin/marketplace.json` — **versions must match**.
 - Release ritual: bump both manifests + CHANGELOG.md + README table → commit → push →
   `claude plugin marketplace update notrest && claude plugin update oracle-suite@notrest`

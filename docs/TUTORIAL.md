@@ -1,6 +1,6 @@
 # The ORACLE Suite in 10 minutes
 
-Thirteen skills that make any Claude session **token-lean, verified, and continuous** — on any topic, with any model. This is the shortest path from install to your first full working loop.
+Twenty skills that make any Claude session **token-lean, verified, and continuous** — on any topic, with any model. This is the shortest path from install to your first full working loop.
 
 ## 1. Install (once)
 
@@ -9,9 +9,10 @@ Thirteen skills that make any Claude session **token-lean, verified, and continu
 /plugin install oracle-suite@notrest
 ```
 
-That's it. Two hooks come alive immediately:
-- **SessionStart** injects the fable-discipline anchor (verification-first working habits) into every session, detects `START-HERE.md` / `HANDOFF.md` resume files, and self-updates the plugin from git.
-- **PreCompact** reminds you to run `/sessionend` before context compaction eats your session state.
+That's it. Three hooks come alive immediately:
+- **SessionStart** injects the fable-discipline anchor (verification-first working habits) AND the offload model policy (every job a Fable session delegates runs on explicit Opus) into every session, auto-creates `COORD.md` — the per-prompt session ledger — at any git-repo root, detects `START-HERE.md` / `HANDOFF.md` resume files, and self-updates the plugin from git (note: marketplace installs live in a version cache, not a git clone — there, update with `claude plugin update oracle-suite@notrest`).
+- **UserPromptSubmit** — when `COORD.md` exists, every prompt carries a one-line reminder: append a ledger line when the work lands (ask → landed | evidence). The ledger survives crashes and compaction even if `/sessionend` never runs.
+- **PreCompact** reminds you to run `/sessionend` before context compaction eats your session state — or at minimum to append the COORD ledger line first.
 
 ## 2. The shape of every skill
 
@@ -27,7 +28,7 @@ Every working skill follows the same contract, so you only learn it once:
 1. **`hey oracle`** — the intake. Six quick questions (Objective, Role, Architecture, Content, Leverage, Evaluation), each skippable. It loads/scaffolds your `CLAUDE.md` foundation and routes you to the right skill.
 2. **Run the work** — say what you need in plain words; the right skill picks it up (see the map below).
 3. **`/sessionend`** — before you stop. It writes `START-HERE.md`, `HANDOFF.md`, `STATE.md`, updates the foundation, and (in Claude Code desktop) keeps a live line open to answer the next session's questions.
-4. **Next session: `hey oracle`** again — it finds `START-HERE.md` and resumes exactly where you left off.
+4. **Next session: `hey oracle`** again — it finds `START-HERE.md` and resumes exactly where you left off, reading in order: `HANDOFF.md` (curated snapshot) → the `COORD.md` ledger tail (the per-prompt trail with evidence — current to the last prompt even if the previous session crashed, and the tiebreaker when docs disagree) → `STATE.md` → `CLAUDE.md`.
 
 ## 4. Which skill, when
 
@@ -46,6 +47,13 @@ Every working skill follows the same contract, so you only learn it once:
 | Save everything before stopping | "/sessionend" → **sessionend** |
 | Work with discipline all session | automatic (hook) · full contract: **/fable-mode** |
 | Run a multi-SESSION dev team | "/fable-director" → **fable-director** |
+| Delegate heavy work fast (Fable seat + Opus lanes) | "swarm this" → **fable-swarm** |
+| Ask "what do we already know about X?" | "index the dossiers" → **archivist** |
+| Audit token spend / model routing | "spend report" → **spend** |
+| Get a GPT second opinion | "/gpt" → **gpt** |
+| Let Claude sessions + GPT work in one room | "open a chatroom" → **chatroom** |
+| Snapshot what the model is thinking (scored) | "/introspect" → **introspect** |
+| Build a playable game | "make me a game about…" → **game-forge** |
 
 ## 5. Chains worth knowing
 
@@ -63,4 +71,4 @@ Every skill enforces: real sources only (invented citations are banned), tiered 
 
 ## 7. Costs, quick
 
-Full runs search the web and write files; `--quick` variants stay in chat and cost a fraction. Search budgets are built in (a researcher run defaults to ~20 searches, factcheck ~3 per claim). You can always say "max 5 searches" or "keep it quick" — the skills honor stated caps and say what was traded away.
+Full runs search the web and write files; `--quick` variants stay in chat and cost a fraction. Search budgets are built in (a researcher run defaults to ~20 searches, factcheck ~3 per claim). You can always say "max 5 searches" or "keep it quick" — the skills honor stated caps and say what was traded away. Delegated fan-out runs on explicit Opus (the owner offload policy — Fable never rides in a subagent), and the **spend** ledger receipts every lane so the routing stays checkable, not asserted.

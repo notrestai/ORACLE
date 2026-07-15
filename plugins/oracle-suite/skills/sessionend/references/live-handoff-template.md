@@ -18,10 +18,12 @@ are the whole handoff (but note the successor can often still SEARCH old transcr
 
 **2. The user starts the successor with this opener** (paste-ready, fill the brackets):
 ```
-Read START-HERE.md first and follow it. The previous session "<old session title>" is still
-alive with full context — use list_sessions to find it and send_message it your setup
-questions BEFORE building anything. If an estate/memory MCP is available, also ask it
-what's live. Your build: <one line naming the next build>.
+Read START-HERE.md first and follow it (its read order routes through the COORD.md
+ledger tail — the per-prompt trail with evidence; when my prose and the ledger disagree,
+the ledger wins: it was written when the work landed). The previous session
+"<old session title>" is still alive with full context — use list_sessions to find it
+and send_message it your setup questions BEFORE building anything. If an estate/memory
+MCP is available, also ask it what's live. Your build: <one line naming the next build>.
 ```
 
 **3. The ending session sends the ORIENTATION MESSAGE** — proactively, the moment the successor
@@ -41,6 +43,9 @@ build is>
 - access paths (hosts, URLs, login users — never secrets)
 - the don't-break list (things that look editable but are load-bearing)
 - landmines with their recipe locations (point at STATE/docs sections, don't restate)
+- the COORD.md ledger tail — which of my claimed-landed items carry evidence there
+  (anything I claim that has no ledger line is [unverified]; write your own discoveries
+  back as ledger lines too — the line is the patch channel, the ledger is the receipt)
 
 **HONEST UNKNOWNS:** <what the docs could NOT cover — things never located, never decided,
 never verified — each with a suggested first probe. This is the highest-value section:

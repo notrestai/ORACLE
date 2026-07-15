@@ -5,3 +5,7 @@
 [2026-07-15 19:27Z] lane=subagent model=claude-sonnet-5 tokens=80261 grade=observed purpose="feature scout: orchestration gaps (agent ac932d43) — routing-rule live test"
 [2026-07-15 19:54Z] lane=subagent model=claude-opus-4-8 tokens=50934 grade=observed purpose="fable-swarm live test: residue sweep lane (found 6 ladder leftovers) — transcript-verified opus"
 [2026-07-15 19:54Z] lane=subagent model=claude-opus-4-8 tokens=50951 grade=observed purpose="fable-swarm live test: QC refuter lane (CONFIRMED fork loophole) — transcript-verified opus"
+[2026-07-15 20:14Z] lane=subagent model=claude-opus-4-8 tokens=66346 grade=observed purpose="comprehensive review: continuity-web lane (5 findings: fable-mode ORIENT/BANK, pre-compact, live-line, sessionend framing)"
+[2026-07-15 20:14Z] lane=subagent model=claude-opus-4-8 tokens=62247 grade=observed purpose="comprehensive review: rename-seam lane (CONFIRMED: hook stub breaks director bootstrap + MODE DETECT)"
+[2026-07-15 20:14Z] lane=subagent model=claude-opus-4-8 tokens=60199 grade=observed purpose="comprehensive review: model-policy lane (1 stale example; all 20 skills clean on opus-only)"
+[2026-07-15 20:14Z] lane=subagent model=claude-opus-4-8 tokens=45836 grade=observed purpose="comprehensive review: docs/counts lane (7 findings: inner README, TUTORIAL, CLAUDE.md version)"

@@ -14,3 +14,4 @@ blackboards live beside this file as COORD-<LANE>.md; this file is the ship/main
 - [2026-07-15 20:02Z] [fable-main] COORD.md generalized (rename + auto-create + per-prompt hook) -> v2.10.0 shipped, fixture-proven | evidence: commit 09aa9b0, scaffolder emits COORD-*.md, plugin updated 2.10.0
 - [2026-07-15 20:10Z] [fable-main] owner ruling: keep all five continuity files (CLAUDE/COORD/START-HERE/HANDOFF/STATE) — redundancy is a deliberate safety cushion; do NOT consolidate | evidence: owner message this session
 - [2026-07-15 20:16Z] [fable-main] START-HERE read order now includes COORD tail (pos 2, crash-tiebreaker) -> v2.10.1 | evidence: sessionend SKILL lines 102-107
+- [2026-07-15 20:40Z] [fable-main] comprehensive 4-lane swarm review -> 21 findings fixed (critical: hook-stub broke director bootstrap; fixture-proven fix), v2.11.0 | evidence: spend report CLEAN 74/26 opus/sonnet, exit 0

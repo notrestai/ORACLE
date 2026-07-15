@@ -41,12 +41,23 @@ for f in PLAN-FABLE-DIRECTOR-V4.md; do
 done
 [ -f "$REPO/_fable/KICKOFF-DIRECTOR.md" ] || sed "s/<PROJECT>/$PROJECT/g" "$REF/KICKOFF-DIRECTOR.md" > "$REPO/_fable/KICKOFF-DIRECTOR.md"
 
-NOW="$(date -u +%H:%M 2>/dev/null || echo 00:00)"
+NOW="$(date -u '+%Y-%m-%d %H:%MZ' 2>/dev/null || echo unknown)"
 ship_done=0
 
 emit_blackboard(){          # $1=NAME $2=ROLE $3=abs-file-path
   name="$1"; role="$2"; file="$3"
-  [ -e "$file" ] && [ "$FORCE" -eq 0 ] && { echo "skip (exists): $file"; return; }
+  # A real blackboard has ## PROTOCOL — skip it. A COORD.md WITHOUT it is the
+  # SessionStart hook's session-ledger stub: upgrade it in place (preserve its
+  # ledger lines, rebuild as a full blackboard). Plain -e would silently skip
+  # the SHIP blackboard on every hook-touched repo — the one lane that matters.
+  stub_ledger=""
+  if [ -e "$file" ] && [ "$FORCE" -eq 0 ]; then
+    if grep -q '^## PROTOCOL' "$file" 2>/dev/null; then
+      echo "skip (exists): $file"; return
+    fi
+    stub_ledger="$(grep '^- ' "$file" 2>/dev/null || true)"
+    echo "upgrading session-ledger stub into blackboard: $file"
+  fi
   {
     printf '# %s — Fable-director ↔ %s blackboard (role: %s)\n\n' "$(basename "$file" .md)" "$name" "$role"
     printf '%s OWN wire — one coord file PER lane, no shared writes. Director writes DIRECTIVES + →A\n' "$name"
@@ -113,7 +124,8 @@ SHX
     printf '## BRIEF-UP →QC/director  (≤40 lines; EDIT-SPEC format for code findings)\n(none)\n'
     printf '## QUESTIONS →director  (taste-calls WITH a DEFAULT)\n(none)\n'
     printf '## LEDGER  (append-only, newest at bottom)\n'
-    printf -- '- %sZ [director] blackboard scaffolded (new-fable-project.sh); D-001 posted.\n' "$NOW"
+    [ -n "$stub_ledger" ] && printf '%s\n' "$stub_ledger"
+    printf -- '- [%s] [director] blackboard scaffolded (new-fable-project.sh); D-001 posted.\n' "$NOW"
   } > "$file"
   echo "wrote: $file"
 }
