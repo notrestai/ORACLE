@@ -35,9 +35,14 @@ plugin, `~/.claude/skills/fable-director/` when running as a loose global skill.
    `scripts/fable-launcher.sh`, which probes and falls back automatically) — log the
    fallback in the ledger and continue; the protocol is model-agnostic. Lanes: never Fable.
    And Fable never rides below the seat: on the rare owner-sanctioned agent spawn anywhere
-   in the arrangement (incl. lanes' own subagents), the model is set explicitly by
-   difficulty — sonnet default, opus for judgment-heavy verification — never inherited
-   Fable. Fable pays for direction, not fan-out.
+   in the arrangement (incl. lanes' own subagents), the model is set explicitly — opus for
+   every offloaded job under the owner policy (2026-07-15; see fable-swarm) — never
+   inherited Fable. Fable pays for direction, not fan-out.
+
+**Sibling note:** for same-machine delegation without the blackboard machinery, the suite's
+**fable-swarm** skill is the fast arrangement (Fable seat + concurrent in-session Opus lanes;
+the harness is the wire — no watches, no rotation). This arrangement remains the choice when
+lanes must survive the machine sleeping, span machines/accounts, or stay owner-watchable.
 
 ## MODE DETECT (in order)
 

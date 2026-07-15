@@ -1,5 +1,36 @@
 # Changelog — ORACLE Suite
 
+## 2.9.0 — 2026-07-15
+
+**fable-swarm — the fast delegation arrangement + the opus-only offload policy.**
+
+- **New skill: `fable-swarm`.** Fable-director's blackboard/watch machinery was built for a
+  metered-key constraint that doesn't hold in a Claude Code Fable session — there, it's pure
+  drag (deaf lanes, queued≠delivered, split-brain rotation, minutes per hop, owner
+  confirm-clicks). The swarm keeps the roles and the discipline and swaps the wire: the seat
+  (Fable) keeps decompose / judge / apply-all-edits / gate-ships / owner-voice; everything
+  else offloads to concurrent in-session background Opus agents and Workflow pipelines; the
+  harness's completion notifications ARE the wire — no watches to re-arm, no rotation. The
+  V4 §6 QC refuter runs as a verification stage after every finding; review-the-fix by a
+  different lane. Estate files stay as banking + crash insurance, explicitly demoted from
+  message bus. Honest boundary section: fable-director remains the choice when lanes must
+  outlive the machine, span machines/accounts, or stay owner-watchable.
+- **OWNER MODEL POLICY (2026-07-15): every offloaded job runs on OPUS** — no sonnet, no
+  haiku, never inherited Fable. Owner chose closest-to-Fable quality on all delegated work
+  over per-token savings; the spend ledger receipts the cost so the policy stays revisable
+  with numbers. Supersedes the v2.7.0 sonnet/haiku difficulty ladder wherever it applied.
+  Hardcoded in all four rule surfaces: the SessionStart hook (auto-deployed every session),
+  fable-mode Hard Rule 11 (+ tool-graph fan-out bullet), fable-director Absolute Rule 6
+  (+ sibling pointer to the swarm), and both CLAUDE.md foundation templates (oracle +
+  sessionend copies now seed the policy into every scaffolded project foundation).
+- **Seat cache rule made explicit everywhere the policy lands:** never `/model`-switch the
+  seat mid-session — the prompt cache is per-model, so a switch re-reads the whole context
+  cold; a subagent starts fresh and costs no cache at all. A model change is a subagent or
+  a handoff, never a toggle.
+- README: fable-swarm row, updated fable-mode row + hooks bullet (including the honest note
+  that marketplace-cache installs don't self-update via git — `claude plugin update` is the
+  real path). Manifests to 2.9.0/"Twenty skills".
+
 ## 2.8.1 — 2026-07-15
 
 **archivist + spend wired into the suite — the skills now trigger each other.**
