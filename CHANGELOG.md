@@ -1,5 +1,13 @@
 # Changelog — ORACLE Suite
 
+## 2.10.1 — 2026-07-15
+
+- **START-HERE now routes through the COORD ledger:** the resume read order is
+  HANDOFF (curated snapshot) → **COORD.md ledger tail** (per-prompt trail with evidence,
+  current to the last prompt even when the session died before sessionend) → STATE →
+  CLAUDE. Self-check adds: the status files must agree with the ledger tail — the trail
+  is the tiebreaker, it was written when the work landed.
+
 ## 2.10.0 — 2026-07-15
 
 **COORD.md everywhere — the fable-coord ledger, generalized to every session.**

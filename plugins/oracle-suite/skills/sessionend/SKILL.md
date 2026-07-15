@@ -67,7 +67,7 @@ Skip silently only when the skills aren't installed.
 Before finishing, confirm — and fix any miss:
 - **Could a fresh session with zero memory resume from `START-HERE.md` alone?** It must name what to read and what to do, in order.
 - Every "next step" is concrete and correctly ordered.
-- `STATE.md`/`HANDOFF.md` reflect what *actually* happened — no invented decisions or code; half-done work marked as such.
+- `STATE.md`/`HANDOFF.md` reflect what *actually* happened — no invented decisions or code; half-done work marked as such — and they agree with the `COORD.md` ledger tail (the trail is the tiebreaker: it was written when the work landed).
 - `CLAUDE.md` (the foundation) was **merged**, not overwritten, and only stably-true things were added to it (volatile status stayed in HANDOFF/STATE).
 - All cited paths/commands are real.
 - If archivist/spend are installed: the index was re-scanned after the last dossier landed, and the spend verdict line is in `HANDOFF.md`.
@@ -100,9 +100,11 @@ The master index the next session opens first. Plain and ordered.
 message it your setup questions before building. If closed, search its transcript.
 
 ## Read these first, in order
-1. HANDOFF.md — where we are and what's next
-2. STATE.md — decisions made + code/changes (newest at top)
-3. CLAUDE.md — the foundation: how you work + infrastructure (auto-read in Code)
+1. HANDOFF.md — where we are and what's next (the curated snapshot)
+2. COORD.md — the ledger tail: the per-prompt trail with evidence, current to the
+   last prompt even if this handoff is stale or the session died before sessionend
+3. STATE.md — decisions made + code/changes (newest at top)
+4. CLAUDE.md — the foundation: how you work + infrastructure (auto-read in Code)
 
 ## Then do this, in order
 1. <first action to resume>
