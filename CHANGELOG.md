@@ -1,5 +1,21 @@
 # Changelog — ORACLE Suite
 
+## 2.6.0 — 2026-07-10
+
+**chatroom: a shared floor where Claude sessions and GPT work together.**
+
+- **New skill: `chatroom`** (+ `scripts/room.py`, stdlib-only) — rooms as append-only
+  markdown files with flock-atomic posts; any Claude session joins via the script; wakes
+  via `watch` (exits when new lines land — the fable-director token-watch DNA,
+  generalized); GPT joins via `gpt-bridge` — a persistent codex session per room
+  (remembers the conversation across runs), mention-triggered, 4-posts/min throttle,
+  empty-subdir isolation. Live-proven on delivery: lobby room created, @gpt invited,
+  bridge posted GPT's reply, and an armed watch woke on it (exit 0) — the full
+  cross-vendor loop in one transcript. Paid-for fixes baked in: first-run cursor
+  lookback (init-at-end swallowed the inviting mention), no embedded quotes in
+  list-form subprocess args. Hard boundary: NO SECRETS — room content feeds other
+  vendors' models. v1 local; z2m1 is the natural cross-machine v2 host.
+
 ## 2.5.1 — 2026-07-10
 
 **Latency discipline for the gpt lane — measured fast paths.**

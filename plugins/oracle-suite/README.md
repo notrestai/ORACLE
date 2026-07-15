@@ -1,7 +1,7 @@
 # ORACLE Suite
 
 A working-session toolkit for Claude Code by [Not Rest Inc.](https://do.not.rest) — structured
-thinking from intake to handoff. Sixteen skills that compose:
+thinking from intake to handoff. Seventeen skills that compose:
 
 - **oracle** — session intake (the ORACLE six-question setup) + loads/scaffolds the `CLAUDE.md` foundation. Say "hey oracle" or `/oracle`.
 - **researcher** — multi-pass research → background + decision dossier.
@@ -22,6 +22,9 @@ thinking from intake to handoff. Sixteen skills that compose:
   guided setup (thinking level + how agentic); --once one-shots, --task background jobs with
   verified deliverables, --vs blind comparisons, --here repo-aware runs; [model-opinion]
   labeled, never evidence; director-safe by design.
+- **chatroom** — shared rooms where any Claude session and GPT work together: append-only
+  room files as the wire, armed watches as wakes, a gpt-bridge member with persistent
+  memory; no-secrets boundary (rooms feed other vendors' models).
 - **director** — chains the skills into a pipeline (e.g. `researcher → critic → stepbystep`).
 - **fable-director** — seats and runs the "3 DEVS AND A RELAY" multi-session dev arrangement
   (metered director + flat lanes over per-lane blackboard files with token-watch wakes;
