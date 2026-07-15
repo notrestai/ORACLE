@@ -3,12 +3,12 @@
 # FILE-ONLY: creates dirs + copies V4/kickoff + generates one blackboard per lane with
 # correct absolute paths and end-anchored tokens. Spawns NOTHING (session creation is
 # owner-only / references/spawn-lanes.md). Idempotent-ish: refuses to clobber existing
-# FABLE-COORD*.md unless --force.
+# COORD*.md unless --force.
 #
 # Usage:  new-fable-project.sh <repo-root> [--force] [lane-spec ...]
 #   lane-spec = NAME:ROLE   ROLE ∈ {ship,research,content,qc}
 #   default lanes: D1:ship D2:research D3:content Q1:qc
-# The FIRST ship lane owns FABLE-COORD.md (no suffix) + STATE + a DIRECTOR-RESUME stub.
+# The FIRST ship lane owns COORD.md (no suffix) + STATE + a DIRECTOR-RESUME stub.
 set -eu
 
 SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -33,7 +33,7 @@ done
 
 mkdir -p "$REPO/_fable" "$REPO/_reports"
 : > /dev/null
-[ -f "$REPO/FABLE-COORD-ARCHIVE.md" ] || : > "$REPO/FABLE-COORD-ARCHIVE.md"
+[ -f "$REPO/COORD-ARCHIVE.md" ] || : > "$REPO/COORD-ARCHIVE.md"
 
 # carry the protocol + kickoff (repo copy is authoritative once present)
 for f in PLAN-FABLE-DIRECTOR-V4.md; do
@@ -64,7 +64,7 @@ emit_blackboard(){          # $1=NAME $2=ROLE $3=abs-file-path
     printf '   ENDING with →PING-QC (reviewable work) or →PING-DIRECTOR (SEV-1 blocker/money/invariant).\n'
     printf '   Token at LINE END only, never mid-prose. RE-ARM YOUR WATCH AT EVERY IDLE (log its task id).\n'
     printf '5. Ledger tag [%s]; append-only; date -u stamps; re-read the tail before appending; compact\n' "$name"
-    printf '   past ~40 lines to FABLE-COORD-ARCHIVE.md.\n\n'
+    printf '   past ~40 lines to COORD-ARCHIVE.md.\n\n'
     printf '### %s WATCH — re-arm at every idle (verbatim, run_in_background)\n' "$name"
     printf '```\n'
     printf 'f="%s"; base=$(grep -E '"'"'PING-%s$'"'"' "$f" | tail -1 | md5); while :; do sleep 20; cur=$(grep -E '"'"'PING-%s$'"'"' "$f" | tail -1 | md5); [ "$cur" != "$base" ] && exit 0; done\n' "$file" "$name" "$name"
@@ -99,7 +99,7 @@ QCX
 confirmed only) · in-flight · blockers)
 
 ### DIRECTOR RESUME  (fresh-director cold-start — read PLAN-FABLE-DIRECTOR-V4.md → every
-### FABLE-COORD*.md → re-arm a director watch per file → open threads below)
+### COORD*.md → re-arm a director watch per file → open threads below)
 OPEN THREADS: (the sitting director keeps this trued before every rotation)
 
 SHX
@@ -121,9 +121,9 @@ SHX
 for spec in $LANES; do
   name="${spec%%:*}"; role="${spec##*:}"
   if [ "$role" = ship ] && [ "$ship_done" -eq 0 ]; then
-    emit_blackboard "$name" ship "$REPO/FABLE-COORD.md"; ship_done=1
+    emit_blackboard "$name" ship "$REPO/COORD.md"; ship_done=1
   else
-    emit_blackboard "$name" "$role" "$REPO/FABLE-COORD-$name.md"
+    emit_blackboard "$name" "$role" "$REPO/COORD-$name.md"
   fi
 done
 
@@ -131,7 +131,7 @@ cat <<EOF
 
 SCAFFOLD COMPLETE → $REPO
   protocol: PLAN-FABLE-DIRECTOR-V4.md   kickoff: _fable/KICKOFF-DIRECTOR.md
-  archive:  FABLE-COORD-ARCHIVE.md      dirs: _fable/ _reports/
+  archive:  COORD-ARCHIVE.md      dirs: _fable/ _reports/
 NEXT (director / owner):
   1. Confirm the project CLAUDE.md has: hard-invariants list · paid-for-pitfalls · one-command ritual.
   2. Owner approves the deny-hook live (references/coord-scaffold.md §3).

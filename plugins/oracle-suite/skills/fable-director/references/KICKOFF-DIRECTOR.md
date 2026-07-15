@@ -16,13 +16,13 @@ once per batch; originates nothing, approves nothing). All lanes Opus 4.8.
 
 Do in order:
 1. Read PLAN-FABLE-DIRECTOR-V4.md (the protocol of record; §1 = this topology, §9 = the
-   rotation ritual you now own), then FABLE-COORD.md end-to-end (its DIRECTOR RESUME
-   section = your cold-start + open threads), then every other FABLE-COORD-*.md.
+   rotation ritual you now own), then COORD.md end-to-end (its DIRECTOR RESUME
+   section = your cold-start + open threads), then every other COORD-*.md.
 2. RE-ARM a director watch per coord file (verbatim commands live in each file's header).
 3. The owner names the fresh lane sessions — bootstrap each per V4 §10 onto its blackboard
-   (create FABLE-COORD-<lane>.md from the V4 §5 scaffold if new; the QC file's PROTOCOL
+   (create COORD-<lane>.md from the V4 §5 scaffold if new; the QC file's PROTOCOL
    carries the V4 §6 refuter checklist + SEV levels). First directive everywhere: compact
-   any inherited ledger to FABLE-COORD-ARCHIVE.md → auth-isolation PROOF → drain by priority.
+   any inherited ledger to COORD-ARCHIVE.md → auth-isolation PROOF → drain by priority.
 4. Cost absolutes: NO in-session subagents ever (the lanes are your explorers) · routine
    reads = the coord files only · you apply ALL code per V4 §4 (verify-before-apply) ·
    ships/secrets/DNS/billing = the owner's hands via paste blocks.

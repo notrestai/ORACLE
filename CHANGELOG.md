@@ -1,5 +1,27 @@
 # Changelog — ORACLE Suite
 
+## 2.10.0 — 2026-07-15
+
+**COORD.md everywhere — the fable-coord ledger, generalized to every session.**
+
+- **`FABLE-COORD*.md` renamed to `COORD*.md`** across the whole suite (fable-director
+  SKILL + V4 plan + kickoff + coord-scaffold + spawn-lanes + scaffolder script + hook +
+  README): the ship/main file is `COORD.md`, lane blackboards are `COORD-<LANE>.md`,
+  the archive is `COORD-ARCHIVE.md`. Legacy `FABLE-COORD*.md` repos still detected.
+- **SessionStart auto-creates `COORD.md`** at the git root of any repo a session starts
+  in (skips non-repos, never clobbers, honors legacy files): an append-only session
+  coordination ledger — one line per substantive prompt when its work lands
+  (`[UTC] [session] ask -> landed | evidence`), honest status, compact to
+  COORD-ARCHIVE.md at ~40 lines.
+- **New UserPromptSubmit hook (`coord-nudge.sh`)** — the mechanism that makes
+  "every prompt writes to it" real: when COORD.md exists, each prompt carries a
+  one-line append reminder. Deliberately one short line — it fires every prompt.
+- **oracle** now reads the COORD ledger tail at intake (the trail of what prior
+  prompts actually landed), appends an intake line, and carries the per-prompt
+  discipline; **sessionend** appends the closing line and compacts the ledger past
+  ~40 lines. Director arrangements are detected by lane files (`COORD-<LANE>.md`),
+  distinct from the bare session ledger.
+
 ## 2.9.1 — 2026-07-15
 
 **The swarm's first live run reviewed its own release — fork loophole closed, ladder residue purged.**

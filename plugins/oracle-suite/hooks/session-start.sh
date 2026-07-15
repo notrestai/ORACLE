@@ -29,7 +29,28 @@ fi
 if [ -f "HANDOFF.md" ] && [ ! -f "START-HERE.md" ]; then
   echo "[oracle-suite] HANDOFF.md exists here — prior session state is available; consider reading it before starting work."
 fi
-if ls FABLE-COORD*.md >/dev/null 2>&1; then
-  echo "[oracle-suite] FABLE-COORD*.md blackboards exist in this directory — a fable-director arrangement lives in this repo. If this session is meant to direct (or rejoin) it, load the fable-director skill (oracle-suite:fable-director): it reads the repo's PLAN-FABLE-DIRECTOR-V4.md + blackboards and re-arms watches before anything else."
+# ── COORD.md: the session coordination ledger (the fable-coord behavior, generalized
+# to every session). Auto-created at the git root of any repo a session starts in;
+# the UserPromptSubmit hook (coord-nudge.sh) injects the per-prompt append discipline.
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null)"
+if [ -n "$REPO_ROOT" ] && [ ! -f "$REPO_ROOT/COORD.md" ] && ! ls "$REPO_ROOT"/FABLE-COORD*.md >/dev/null 2>&1; then
+  cat > "$REPO_ROOT/COORD.md" <<'COORDEOF'
+# COORD.md — session coordination ledger
+
+Append-only, newest at the bottom, one line per substantive prompt when its work
+lands: `- [YYYY-MM-DD HH:MMZ] [session-or-lane] <what was asked> -> <what landed> | evidence: <exit code / commit / path / status>`.
+Honest entries only: in-progress is "in progress", untested is "untested". Compact
+to COORD-ARCHIVE.md at ~40 ledger lines. In a fable-director arrangement, lane
+blackboards live beside this file as COORD-<LANE>.md; this file is the ship/main ledger.
+
+## LEDGER
+COORDEOF
+  echo "- [$(date -u '+%Y-%m-%d %H:%MZ')] [hook] COORD.md scaffolded by oracle-suite SessionStart" >> "$REPO_ROOT/COORD.md"
+  echo "[oracle-suite] COORD.md created at the repo root — the session coordination ledger. Append one ledger line per substantive prompt when its work lands (ask -> landed | evidence)."
+elif [ -n "$REPO_ROOT" ] && [ -f "$REPO_ROOT/COORD.md" ]; then
+  echo "[oracle-suite] COORD.md is live in this repo — read its ledger tail before starting (prior sessions' trail), and append one line per substantive prompt's work (ask -> landed | evidence)."
+fi
+if ls COORD-*.md >/dev/null 2>&1 || ls FABLE-COORD*.md >/dev/null 2>&1 || [ -f "PLAN-FABLE-DIRECTOR-V4.md" ]; then
+  echo "[oracle-suite] Per-lane COORD blackboards (COORD-<LANE>.md / legacy FABLE-COORD*.md) exist here — a fable-director arrangement lives in this repo. If this session is meant to direct (or rejoin) it, load the fable-director skill (oracle-suite:fable-director): it reads the repo's PLAN-FABLE-DIRECTOR-V4.md + blackboards and re-arms watches before anything else."
 fi
 exit 0

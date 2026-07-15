@@ -3,7 +3,7 @@
 ## 1. Coord-file scaffold — create ONE per lane, absolute paths filled in
 
 ```markdown
-# FABLE-COORD[-<LANE>].md — Fable-director ↔ <LANE> blackboard
+# COORD[-<LANE>].md — Fable-director ↔ <LANE> blackboard
 
 <LANE>'s OWN wire (one coord file PER lane — no shared writes). Director writes DIRECTIVES +
 →A answers HERE; <LANE> writes everything else HERE and ONLY here. Never write other lanes'
@@ -25,7 +25,7 @@ Owner sits above all. Protocol of record: PLAN-FABLE-DIRECTOR-V4.md (repo root).
    blockers, SEV-1). Token at LINE END only, never mid-prose. The director/QC pings you
    with a line ending →PING-<LANE>. RE-ARM YOUR WATCH AT EVERY IDLE (log its task id).
 6. Ledger tag [<LANE>]; append-only; `date -u` stamps; re-read the tail before appending;
-   compact past ~40 lines to FABLE-COORD-ARCHIVE.md.
+   compact past ~40 lines to COORD-ARCHIVE.md.
 
 ### <LANE> WATCH — re-arm at every idle (verbatim, run_in_background)
 ```
@@ -59,7 +59,7 @@ pings the director ONCE per batch from THIS file; originates nothing; approves n
 ## 2. Lane bootstrap message template (the ONE send_message per lane)
 
 > You are <LANE>, the <role> lane in the Fable split for <project> ("3 DEVS AND A RELAY",
-> PLAN-FABLE-DIRECTOR-V4.md). Read V4 §2–§9, then YOUR blackboard FABLE-COORD-<LANE>.md
+> PLAN-FABLE-DIRECTOR-V4.md). Read V4 §2–§9, then YOUR blackboard COORD-<LANE>.md
 > end-to-end. ARM YOUR WATCH FIRST (verbatim in the file; run_in_background; log the task
 > id) — without it you are deaf. Then drain D-001.. by priority. Never git add -A ·
 > deploys/secrets = owner · EDIT SPECS, never edits · ping per your PROTOCOL §5, token at

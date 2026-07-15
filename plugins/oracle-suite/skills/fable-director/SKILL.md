@@ -1,6 +1,6 @@
 ---
 name: fable-director
-description: Seat and operate the "3 DEVS AND A RELAY" Fable-director arrangement (Oracle family) — a metered director session orchestrating flat dev/QC lanes through per-lane blackboard files with token-watch wakes. Use when the user says "/fable-director", "fable director", "3 devs and a relay", "stand up / duplicate the fable arrangement (on this project)", says the rotation trigger ("context getting full — rotate; new sessions ..."), when this session receives a ROTATION HANDOFF / FABLE KICKOFF message, or when the repo contains FABLE-COORD*.md blackboards needing a director. Distinct from the suite's `director` skill (that one chains sibling SKILLS into a pipeline; this one runs a multi-SESSION dev arrangement). Not for ordinary tasks.
+description: Seat and operate the "3 DEVS AND A RELAY" Fable-director arrangement (Oracle family) — a metered director session orchestrating flat dev/QC lanes through per-lane blackboard files with token-watch wakes. Use when the user says "/fable-director", "fable director", "3 devs and a relay", "stand up / duplicate the fable arrangement (on this project)", says the rotation trigger ("context getting full — rotate; new sessions ..."), when this session receives a ROTATION HANDOFF / FABLE KICKOFF message, or when the repo contains COORD*.md blackboards needing a director. Distinct from the suite's `director` skill (that one chains sibling SKILLS into a pipeline; this one runs a multi-SESSION dev arrangement). Not for ordinary tasks.
 ---
 
 # fable-director — the "3 DEVS AND A RELAY" seat
@@ -51,14 +51,14 @@ lanes must survive the machine sleeping, span machines/accounts, or stay owner-w
 **A. SEAT (rotation landing)** — the invoking message contains a ROTATION HANDOFF /
 FABLE KICKOFF, or the repo has `_fable/KICKOFF-DIRECTOR.md` and the owner says you're the
 new director: execute the kickoff verbatim (the REPO's kickoff + V4, not the bundle):
-read plan → every `FABLE-COORD*.md` end-to-end (a DIRECTOR RESUME section in the ship-lane
+read plan → every `COORD*.md` end-to-end (a DIRECTOR RESUME section in the ship-lane
 file is your cold-start + open threads) → re-arm one director watch per coord file →
 bootstrap owner-named lanes (one message each; templates in `references/coord-scaffold.md`
 §2) — first directive everywhere: compact inherited ledger → auth-isolation proof → drain.
 End your FIRST ledger line with the director wake token (it tells your predecessor the
 handoff took, exactly once).
 
-**B. OPERATE (sitting director)** — repo has FABLE-COORD*.md and you've seated before:
+**B. OPERATE (sitting director)** — repo has COORD*.md and you've seated before:
 run the burst agenda — QUESTIONS → ESCALATIONS → QC verdicts/BRIEF-UPs → this burst's
 objective → re-arm watches → close. Judge briefs adversarially (QC pre-verifies; you still
 verify-before-apply on every edit spec). Ships: final gate check (prove each tar-verify
@@ -75,7 +75,7 @@ unfiled work is posted (stand-down order first) · two directors bursting at onc
 names = silent non-delivery · skipping inherited-ledger compaction = every burst pays the
 history tax · the kickoff file drifting from the plan version (update both, same commit).
 
-**C. BOOTSTRAP (new project — the duplication path)** — no FABLE-COORD*.md in the repo:
+**C. BOOTSTRAP (new project — the duplication path)** — no COORD*.md in the repo:
 1+2. Run the scaffolder (does dirs + V4/kickoff copy — stamping the repo's name into the
    kickoff — + every blackboard with correct
    absolute paths, end-anchored tokens, and the QC checklist baked in — FILE-ONLY, spawns

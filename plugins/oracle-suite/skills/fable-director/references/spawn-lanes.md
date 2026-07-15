@@ -17,7 +17,7 @@
 ```
 cat > "<REPO>/_fable/boot-<LANE>.txt" <<'EOF'
 You are <LANE>, the <role> lane in the Fable split for <project> ("3 DEVS AND A RELAY").
-Read PLAN-FABLE-DIRECTOR-V4.md §2-§9, then YOUR blackboard FABLE-COORD-<LANE>.md
+Read PLAN-FABLE-DIRECTOR-V4.md §2-§9, then YOUR blackboard COORD-<LANE>.md
 end-to-end. ARM YOUR WATCH FIRST (verbatim in the file; run_in_background; log the task
 id). Then drain D-001.. by priority. Never git add -A · deploys/secrets = owner · EDIT
 SPECS, never edits · ping per PROTOCOL §5, token at line end. Acknowledge in YOUR ledger.

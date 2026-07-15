@@ -12,9 +12,19 @@ When invoked, walk the user through six quick questions that load good context b
 Run **only** when the user says **hey oracle**, **/oracle**, or clearly asks to start an ORACLE session. Otherwise ignore this skill and help normally — never run the intake on an ordinary question.
 
 ## Foundation & resume (do this first, before the questions)
-When invoked, glance at the working directory for two files a prior session may have left:
+When invoked, glance at the working directory for files a prior session may have left:
 - **`CLAUDE.md`** — the foundation (how you work, tooling, conventions, infrastructure). If it exists, it's already your loaded context (Claude Code auto-reads it at the repo root; elsewhere, read it). Treat it as the baseline and **do not recreate or overwrite it** — upkeep happens at session end via `sessionend`.
 - **`START-HERE.md`** — a prior session's resume instructions. If it exists, tell the user a previous session left off here and offer to **resume from it** (read it, continue in its order) or start fresh.
+- **`COORD.md`** — the session coordination ledger (the SessionStart hook auto-creates it
+  at any git-repo root; scaffold it yourself here if it's missing and the environment has
+  no hooks: a header stating the append-only line format `- [UTC] [session] ask -> landed |
+  evidence`, then a `## LEDGER` section). Read its ledger tail — it is the running trail of
+  what every prior prompt actually landed. Append an intake line when setup completes
+  (e.g. `[oracle] intake done: O=<objective one-liner> -> routed to /<skill>`), and keep
+  the discipline for the whole session: **one honest ledger line per substantive prompt,
+  written when the work lands, evidence included**. Newest at the bottom; compact to
+  `COORD-ARCHIVE.md` at ~40 lines. In fable-director repos the per-lane blackboards are
+  `COORD-<LANE>.md` beside it — never write to a lane's file.
 
 **Resuming a continuation? Open the live line back (multi-session environments only).** In Claude Code desktop (where `list_sessions` / `send_message` / `search_session_transcripts` exist), a continuation session should connect to its predecessor instead of relying on docs alone:
 1. Find the predecessor: `START-HERE.md` may name it on a **"Live line:"** row (title + session id, written by `sessionend`); otherwise `list_sessions` and match the most recent session for this project/cwd.

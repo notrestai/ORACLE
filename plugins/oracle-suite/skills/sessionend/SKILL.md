@@ -58,6 +58,10 @@ Two one-command closes, run after the files are written:
   `report` and paste the verdict line into `HANDOFF.md` — and any ROUTING VIOLATIONS
   verbatim, never smoothed.
 Skip silently only when the skills aren't installed.
+- **COORD.md** present (the session coordination ledger) → append the closing line:
+  `- [UTC] [sessionend] session closed: <one-line outcome> | handoff: START-HERE.md` —
+  and if the ledger has grown past ~40 lines, compact the oldest entries into
+  `COORD-ARCHIVE.md` now so the next session reads a short tail.
 
 ## Phase 4 — Verify resumability (self-check)
 Before finishing, confirm — and fix any miss:

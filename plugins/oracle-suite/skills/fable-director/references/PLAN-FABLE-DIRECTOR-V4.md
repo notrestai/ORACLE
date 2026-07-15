@@ -120,8 +120,8 @@ first. The three safety legs (keep all three):
 
 ## 5. Files & ownership — one blackboard per lane
 
-- `FABLE-COORD.md` (ship lane) · `FABLE-COORD-<LANE>.md` each other lane · shared
-  `FABLE-COORD-ARCHIVE.md`. ⚠ Two writers on one file = live edit collisions (observed).
+- `COORD.md` (ship lane) · `COORD-<LANE>.md` each other lane · shared
+  `COORD-ARCHIVE.md`. ⚠ Two writers on one file = live edit collisions (observed).
   Lanes READ any file, WRITE only their own; the director writes DIRECTIVES + →A answers
   in each.
 - Scaffold per file: header (who writes what; this file is the only channel) · PROTOCOL
@@ -229,9 +229,9 @@ create sessions · say the trigger phrase · click confirm.
 ## 10. DUPLICATION GUIDE — new project in ~20 minutes
 
 1. Copy into the new repo root: this file + `_fable/KICKOFF-DIRECTOR.md` (fix its project
-   name/paths) · create `FABLE-COORD.md` + one `FABLE-COORD-<LANE>.md` per lane from §5's
+   name/paths) · create `COORD.md` + one `COORD-<LANE>.md` per lane from §5's
    scaffold (absolute paths into the watch commands; tokens named for YOUR sessions) ·
-   `touch FABLE-COORD-ARCHIVE.md` · `mkdir -p _fable _reports`.
+   `touch COORD-ARCHIVE.md` · `mkdir -p _fable _reports`.
 2. Copy `.claude/hooks/deny-guard.py` + the PreToolUse block of `.claude/settings.json`;
    adapt deny patterns (deploy targets, ssh hosts). Owner approves it live in a lane session.
 3. PREREQUISITES in the project's CLAUDE.md (the quality system stands on these): a
