@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORACLE — the front door (oracle skill flow)</title>
+<style>
+:root{
+  --surface-0:#f7f6f2; --surface-1:#ffffff; --border:#e6e3da; --border-strong:#d2cfc4;
+  --text-primary:#20201d; --text-secondary:#57564f; --text-muted:#86857b;
+  --radius:8px; --c-oracle:#7F77DD; --c-q:#1D9E75; --c-neutral:#8f8e84;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --surface-0:#191917; --surface-1:#242421; --border:#37362e; --border-strong:#4b4a40;
+    --text-primary:#f2f1ea; --text-secondary:#b7b5a9; --text-muted:#8b8a7f;
+    --c-oracle:#9a92ea; --c-q:#3fc79c; --c-neutral:#9d9c92;
+  }
+}
+:root[data-theme="dark"]{
+  --surface-0:#191917; --surface-1:#242421; --border:#37362e; --border-strong:#4b4a40;
+  --text-primary:#f2f1ea; --text-secondary:#b7b5a9; --text-muted:#8b8a7f;
+  --c-oracle:#9a92ea; --c-q:#3fc79c; --c-neutral:#9d9c92;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--surface-0);color:var(--text-primary);line-height:1.5;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  padding:2rem 1.15rem 2.5rem}
+.wrap{max-width:940px;margin:0 auto}
+.hdr{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:1.4rem}
+h1{font-size:22px;font-weight:500;margin:0 0 .35rem}
+.lede{font-size:14px;color:var(--text-secondary);margin:0;max-width:64ch}
+.tbtn{flex:none;background:var(--surface-1);color:var(--text-secondary);border:1px solid var(--border);
+  border-radius:999px;padding:.35rem .8rem;font-size:12px;cursor:pointer;font-family:inherit}
+.tbtn:hover{border-color:var(--border-strong)}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px}
+.lbl{font-size:12px;font-weight:500;color:var(--text-secondary);letter-spacing:.03em;margin:1.4rem 0 .55rem}
+.sub{font-size:12px;color:var(--text-muted)}
+.row{display:flex;flex-wrap:wrap;gap:.5rem}
+.card{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;padding:.6rem .7rem}
+.step{background:var(--surface-1);border:1px solid var(--border);border-left:3px solid var(--c-oracle);border-radius:0;padding:.6rem .7rem}
+.rail{background:var(--surface-1);border:1px dashed var(--border-strong);border-radius:12px;padding:.55rem .65rem}
+.conn{display:flex;justify-content:center;color:var(--text-muted);margin:.35rem 0}
+.conn .ic{width:20px;height:20px}
+.harr{display:flex;align-items:center;color:var(--text-muted)}
+.harr .ic{width:17px;height:17px}
+.t{font-size:14px;font-weight:500;display:flex;align-items:center;gap:.35rem}
+.d{font-size:12.5px;color:var(--text-secondary);margin-top:.2rem}
+.pill{display:inline-flex;align-items:center;gap:.35rem;border:1px solid var(--border);border-radius:999px;
+  padding:.22rem .6rem;font-size:12px;color:var(--text-secondary);background:var(--surface-1)}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.qbadge{width:27px;height:27px;border-radius:50%;border:2px solid var(--c-q);display:flex;align-items:center;
+  justify-content:center;font-weight:500;font-size:14px;flex:none;color:var(--text-primary)}
+.ic{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic-fill{fill:currentColor;stroke:none}
+.foot{max-width:940px;margin:2rem auto 0;padding-top:1rem;border-top:1px solid var(--border);
+  font-size:12px;color:var(--text-muted);display:flex;flex-wrap:wrap;gap:.4rem 1rem}
+</style>
+</head>
+<body>
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+  <symbol id="i-login" viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><path d="M3 12h12"/><path d="M9 8l4 4-4 4"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M21 12H9"/><path d="M17 8l4 4-4 4"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="12" r="3"/><path d="M10 12h4"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.66 3.13 3 7 3s7-1.34 7-3V6"/><path d="M5 12v6c0 1.66 3.13 3 7 3s7-1.34 7-3v-6"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.9 6.8 19.6l1-5.8L3.5 9.7l5.9-.9z"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12"/><path d="M18 6L6 18"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-.85 4"/><path d="M20 4v7h-7"/></symbol>
+  <symbol id="i-work" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4L6 21z"/><path d="M9 8h6"/><path d="M9 12h6"/></symbol>
+</svg>
+
+<header class="wrap hdr">
+  <div>
+    <h1>ORACLE — the front door</h1>
+    <p class="lede">The ORACLE suite's session-intake skill: glance at the working dir and resume prior work first, ask six skippable questions, then route to the skill that does the job — one half of a continuity bookend with sessionend.</p>
+  </div>
+  <button id="themeBtn" class="tbtn" type="button" aria-label="Toggle light or dark theme">light / dark</button>
+</header>
+
+<main class="wrap">
+  <div class="row" style="align-items:center">
+    <span class="pill"><span class="dot" style="background:var(--c-oracle)"></span>oracle's own steps</span>
+    <span class="pill"><span class="dot" style="background:var(--c-q)"></span>the six questions</span>
+    <span class="pill"><span class="dot" style="background:var(--c-neutral)"></span>files &amp; sibling skills</span>
+  </div>
+
+  <div class="step" style="border-left-width:4px;margin-top:1rem">
+    <div class="row" style="justify-content:space-between;align-items:baseline">
+      <span class="t"><svg class="ic"><use href="#i-login"/></svg> oracle — the front door</span>
+      <span class="sub">v2.11.0 · 20-skill suite · session intake + resume</span>
+    </div>
+    <div class="row" style="margin-top:.5rem">
+      <span class="pill mono">hey oracle</span><span class="pill mono">/oracle</span><span class="pill mono">start an oracle session</span><span class="pill mono">resume</span>
+    </div>
+    <div class="d"><svg class="ic"><use href="#i-x"/></svg> ordinary question → stays out of the way, helps normally (never runs the intake)</div>
+  </div>
+
+  <div class="conn"><svg class="ic"><use href="#i-down"/></svg></div>
+  <div class="lbl">1 · foundation &amp; resume — first, before the questions (glance at the working dir)</div>
+  <div class="row">
+    <div class="card" style="flex:1;min-width:210px"><div class="t"><svg class="ic"><use href="#i-file"/></svg> CLAUDE.md</div><div class="d">The loaded foundation — baseline, never overwritten (sessionend owns upkeep).</div></div>
+    <div class="card" style="flex:1;min-width:210px"><div class="t"><svg class="ic"><use href="#i-file"/></svg> START-HERE.md</div><div class="d">A prior session's resume note → offer resume vs. start fresh.</div></div>
+    <div class="card" style="flex:1;min-width:210px"><div class="t"><svg class="ic"><use href="#i-file"/></svg> COORD.md</div><div class="d">Read the ledger tail; append an intake line when setup lands.</div></div>
+  </div>
+  <div class="sub" style="margin:.65rem 0 .4rem">optional side-rails — fire only if present:</div>
+  <div class="row">
+    <div class="rail" style="flex:1;min-width:230px"><div class="t"><svg class="ic"><use href="#i-link"/></svg> live line <span class="sub">· multi-session</span></div><div class="d">Message the predecessor session (list_sessions / send_message), fold its answers in; search transcripts if it's closed.</div></div>
+    <div class="rail" style="flex:1;min-width:230px"><div class="t"><svg class="ic"><use href="#i-db"/></svg> memory <span class="sub">· if present</span></div><div class="d">Query before the content question; strong hits become content (background, never overrides you).</div></div>
+    <div class="rail" style="flex:1;min-width:230px"><div class="t"><svg class="ic"><use href="#i-folder"/></svg> dossier index <span class="sub">· if present</span></div><div class="d">archivist refreshes oracle-index.md + one find on the objective → reuse / extend / fresh.</div></div>
+  </div>
+
+  <div class="conn"><svg class="ic"><use href="#i-down"/></svg></div>
+  <div class="row" style="justify-content:space-between;align-items:center">
+    <div class="lbl" style="margin:1.4rem 0 0">2 · the six ORACLE questions — asked one at a time</div>
+    <div class="row"><span class="pill">[skip]</span><span class="pill">[skip the rest]</span></div>
+  </div>
+  <div class="sub" style="margin:.35rem 0 .55rem">skip / skip the rest offered on every question.</div>
+  <div class="row">
+    <div class="card" style="flex:1;min-width:260px;display:flex;gap:.6rem;align-items:flex-start"><span class="qbadge">O</span><div><div class="t">Objective</div><div class="d">What's the win this session?</div></div></div>
+    <div class="card" style="flex:1;min-width:260px;display:flex;gap:.6rem;align-items:flex-start"><span class="qbadge">R</span><div><div class="t">Role</div><div class="d">Who should I be while I help?</div></div></div>
+    <div class="card" style="flex:1;min-width:260px;display:flex;gap:.6rem;align-items:flex-start"><span class="qbadge">A</span><div><div class="t">Architecture</div><div class="d">How should I work? Output shape &amp; rules?</div></div></div>
+    <div class="card" style="flex:1;min-width:260px;display:flex;gap:.6rem;align-items:flex-start"><span class="qbadge">C</span><div><div class="t">Content <svg class="ic ic-fill" style="color:var(--c-q);width:13px;height:13px"><use href="#i-star"/></svg> <span class="sub">matters most</span></div><div class="d">What should I work from? Docs, key facts, 2–5 examples of “good”.</div></div></div>
+    <div class="card" style="flex:1;min-width:260px;display:flex;gap:.6rem;align-items:flex-start"><span class="qbadge">L</span><div><div class="t">Leverage</div><div class="d">Which tools or skills to use — or avoid?</div></div></div>
+    <div class="card" style="flex:1;min-width:260px;display:flex;gap:.6rem;align-items:flex-start"><span class="qbadge">E</span><div><div class="t">Evaluation</div><div class="d">How will you judge? How should I self-check?</div></div></div>
+  </div>
+
+  <div class="conn"><svg class="ic"><use href="#i-down"/></svg></div>
+  <div class="lbl">3 · when done — reflect, route, then work</div>
+  <div class="row">
+    <div class="step" style="flex:1;min-width:165px"><div class="t">reflect</div><div class="d">One-line summary per slot: O R A C L E (“—” if skipped).</div></div>
+    <div class="step" style="flex:1;min-width:165px"><div class="t">confirm</div><div class="d">“Ready to go, or want to change anything?”</div></div>
+    <div class="step" style="flex:1;min-width:165px"><div class="t">route ↓</div><div class="d">Name the sibling skill that fits the objective.</div></div>
+    <div class="step" style="flex:1;min-width:165px"><div class="t">scaffold CLAUDE.md</div><div class="d">Only if none exists — from the bundled template, seeded from answers.</div></div>
+    <div class="step" style="flex:1;min-width:165px"><div class="t">do the work</div><div class="d">Loading rule: content first, the actual ask last.</div></div>
+  </div>
+
+  <div class="conn"><svg class="ic"><use href="#i-down"/></svg></div>
+  <div class="lbl">routing — from the objective, hand off to one skill (a recommendation, not forced)</div>
+  <div class="row">
+    <span class="pill"><span class="mono">research</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">researcher</span></span>
+    <span class="pill"><span class="mono">understand</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">explainer</span></span>
+    <span class="pill"><span class="mono">choose</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">decider</span></span>
+    <span class="pill"><span class="mono">verify</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">factcheck</span></span>
+    <span class="pill"><span class="mono">size a market</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">marketresearcher</span></span>
+    <span class="pill"><span class="mono">build a plan</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">stepbystep</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">actionplan</span></span>
+    <span class="pill"><span class="mono">red-team</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">critic</span></span>
+    <span class="pill"><span class="mono">what do we know?</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">archivist</span></span>
+    <span class="pill"><span class="mono">audit spend</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">spend</span></span>
+    <span class="pill"><span class="mono">several in sequence</span> <svg class="ic"><use href="#i-right"/></svg> <span class="mono">director</span></span>
+    <span class="pill">or — no skill, work directly</span>
+  </div>
+
+  <div class="conn"><svg class="ic"><use href="#i-down"/></svg></div>
+  <div class="lbl">continuity loop — where oracle sits in the suite</div>
+  <div class="row" style="align-items:stretch">
+    <div class="step" style="flex:1;min-width:215px"><div class="t"><svg class="ic"><use href="#i-login"/></svg> oracle · session start</div><div class="d">Loads the CLAUDE.md foundation, resumes from START-HERE.md.</div></div>
+    <div class="harr"><svg class="ic"><use href="#i-right"/></svg></div>
+    <div class="card" style="flex:1;min-width:185px"><div class="t"><svg class="ic"><use href="#i-work"/></svg> the work</div><div class="d">Research / analysis skills — indexed by archivist, metered by spend.</div></div>
+    <div class="harr"><svg class="ic"><use href="#i-right"/></svg></div>
+    <div class="card" style="flex:1;min-width:215px;border-left:3px solid var(--c-neutral);border-radius:0"><div class="t"><svg class="ic"><use href="#i-logout"/></svg> sessionend · session end</div><div class="d">Writes START-HERE / HANDOFF / STATE, merges CLAUDE.md (never clobbers), appends the COORD.md close line, drops the “Live line:” row.</div></div>
+  </div>
+  <div class="sub" style="display:flex;align-items:center;gap:.4rem;justify-content:center;margin:.6rem 0"><svg class="ic"><use href="#i-refresh"/></svg> the next session's oracle resumes from exactly these files</div>
+  <div class="row">
+    <div class="card" style="flex:1;min-width:250px"><div class="t"><svg class="ic"><use href="#i-folder"/></svg> archivist</div><div class="d">Content continuity: indexes every dossier into oracle-index.md — consult before re-spending a search budget.</div></div>
+    <div class="card" style="flex:1;min-width:250px"><div class="t"><svg class="ic"><use href="#i-receipt"/></svg> spend</div><div class="d">The audit ledger (spend/ledger.md): makes “Fable never rides in a subagent” checkable — report exits 4 on a violation.</div></div>
+  </div>
+  <div class="row" style="justify-content:center;margin-top:.65rem">
+    <span class="pill">sessions continuous — oracle + sessionend</span>
+    <span class="pill">content continuous — archivist</span>
+    <span class="pill">honest — spend</span>
+  </div>
+</main>
+
+<footer class="foot">
+  <span>Source: plugins/oracle-suite/skills/oracle/SKILL.md</span>
+  <span>Manifest: oracle-suite v2.11.0</span>
+  <span>Diagram drawn 2026-07-15</span>
+  <span>Self-contained · no external dependencies</span>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('themeBtn'), r=document.documentElement;
+  function cur(){ return r.getAttribute('data-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'); }
+  b.addEventListener('click', function(){ r.setAttribute('data-theme', cur()==='dark'?'light':'dark'); });
+})();
+</script>
+</body>
+</html>

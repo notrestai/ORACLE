@@ -17,7 +17,8 @@ Last updated: 2026-07-15
 - This repo IS the ORACLE suite marketplace: `plugins/oracle-suite/` (20 skills;
   current version lives in plugin.json), manifest at `plugins/oracle-suite/.claude-plugin/plugin.json`, marketplace
   manifest at `.claude-plugin/marketplace.json` — **versions must match**.
-- Release ritual: bump both manifests + CHANGELOG.md + README table → commit → push →
+- Release ritual: bump both manifests + CHANGELOG.md + README table + the version stamps
+  in docs/oracle-skill-flow.html (header + footer) → commit → push →
   `claude plugin marketplace update notrest && claude plugin update oracle-suite@notrest`
   (restart applies). The hook's git self-update no-ops on marketplace-cache installs
   (`~/.claude/plugins/cache/...` is not a git clone) — the CLI path above is the real one.

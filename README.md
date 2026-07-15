@@ -47,5 +47,8 @@ A working-session toolkit — structured thinking from intake to handoff, built 
 ## 10-minute tutorial
 [docs/TUTORIAL.md](docs/TUTORIAL.md) — install → the shape of every skill → your first full loop → which-skill-when → chains worth knowing.
 
+## Visual: how an ORACLE session flows
+[docs/oracle-skill-flow.html](docs/oracle-skill-flow.html) — a one-page, self-contained diagram of the oracle intake (foundation & resume → the six questions → routing → the continuity loop). GitHub shows HTML as source — open the file locally in a browser, or via GitHub Pages if enabled for this repo.
+
 ## License
 MIT © 2026 Not Rest Inc.

@@ -15,3 +15,4 @@ blackboards live beside this file as COORD-<LANE>.md; this file is the ship/main
 - [2026-07-15 20:10Z] [fable-main] owner ruling: keep all five continuity files (CLAUDE/COORD/START-HERE/HANDOFF/STATE) — redundancy is a deliberate safety cushion; do NOT consolidate | evidence: owner message this session
 - [2026-07-15 20:16Z] [fable-main] START-HERE read order now includes COORD tail (pos 2, crash-tiebreaker) -> v2.10.1 | evidence: sessionend SKILL lines 102-107
 - [2026-07-15 20:40Z] [fable-main] comprehensive 4-lane swarm review -> 21 findings fixed (critical: hook-stub broke director bootstrap; fixture-proven fix), v2.11.0 | evidence: spend report CLEAN 74/26 opus/sonnet, exit 0
+- [2026-07-15 20:55Z] [fable-main] oracle-skill-flow.html reviewed -> stamped v2.11.0, sessionend card fixed (COORD close line), wired into docs/ + README + TUTORIAL + release ritual, render-verified in browser | evidence: commit follows

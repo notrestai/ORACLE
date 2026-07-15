@@ -30,6 +30,8 @@ Every working skill follows the same contract, so you only learn it once:
 3. **`/sessionend`** — before you stop. It writes `START-HERE.md`, `HANDOFF.md`, `STATE.md`, updates the foundation, and (in Claude Code desktop) keeps a live line open to answer the next session's questions.
 4. **Next session: `hey oracle`** again — it finds `START-HERE.md` and resumes exactly where you left off, reading in order: `HANDOFF.md` (curated snapshot) → the `COORD.md` ledger tail (the per-prompt trail with evidence — current to the last prompt even if the previous session crashed, and the tiebreaker when docs disagree) → `STATE.md` → `CLAUDE.md`.
 
+Prefer a picture? [oracle-skill-flow.html](oracle-skill-flow.html) is a one-page visual of this whole loop (open it in a browser — GitHub shows HTML as source).
+
 ## 4. Which skill, when
 
 | You want to… | Say / invoke |
