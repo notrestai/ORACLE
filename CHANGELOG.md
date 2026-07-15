@@ -1,5 +1,29 @@
 # Changelog — ORACLE Suite
 
+## 2.8.0 — 2026-07-15
+
+**archivist + spend: the index and the receipt.**
+
+- **New skill: `archivist`** (+ `scripts/index.py`, stdlib-only) — content continuity to
+  match oracle/sessionend's session continuity: `scan` walks every ORACLE output folder
+  (incl. `pipeline/NN-<skill>/` stages) and rebuilds one greppable `oracle-index.md` at the
+  repo root — title, date, path, and each dossier's own 📌 Read Me First lines; `find`
+  answers "what do we already know about X" for less than one web search. Consult-before-
+  spending is the discipline: on a hit, offer reuse/extend/fresh instead of re-running the
+  budget. Hard rules: the index is a finding aid never a source; a hit ≠ still true
+  (re-verify load-bearing [cited] claims by age); never hand-edit (regenerate). `oracle`
+  intake now consults/refreshes the index before routing. Fixture-proven on delivery:
+  3-dossier scan (nested pipeline stage included), hit + miss both correct.
+- **New skill: `spend`** (+ `scripts/spend.py`, flock-atomic appends — the room.py DNA) —
+  the instrument behind v2.7.0's routing rule: every observed model spend (subagent
+  completions, workflow totals, gpt-lane tokens-used echoes) gets one append-only
+  `spend/ledger.md` line (model, lane, tokens|unknown, grade observed|estimate); `report`
+  prints the per-model split and the routing verdict, **exiting 4 on any entry where Fable
+  rode below the seat** — usable as a gate in scripts and ship rituals. Honest boundary
+  stated on every report: the ledger covers observed spend only; the main loop's own
+  consumption is not exposed to the model. Fixture-proven on delivery: deliberate
+  violation caught (exit 4), seat-lane Fable correctly legal (exit 0, "routing: CLEAN").
+
 ## 2.7.0 — 2026-07-15
 
 **Subagent model routing: Fable never rides in a subagent (the single biggest token-saving hard rule).**
