@@ -43,7 +43,9 @@ codex exec --sandbox read-only -c model_reasoning_effort="$LEVEL" \
   "<MESSAGE>" </dev/null 2>&1
 ```
 
-Relay the answer quoted + `[model-opinion]`, tokens-used line included. `--chat <name>`
+Relay the answer quoted + `[model-opinion]`, tokens-used line included. When the suite's
+**spend** skill is present, append the echoed count to its ledger (`--lane gpt`) — the
+cross-model lane shows up in the same routing report as everything else. `--chat <name>`
 runs parallel named conversations (own `.id`/`.profile`). `--new` re-runs setup. If the
 id file is lost, `resume --last` recovers the most recent session — say you did.
 

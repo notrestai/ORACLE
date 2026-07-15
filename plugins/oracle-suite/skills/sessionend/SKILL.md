@@ -49,6 +49,16 @@ what's in progress · the next step · pointer to `START-HERE.md`. Future sessio
 handoff even without the files in front of them. The files remain the source of truth; memory is the
 finding aid.
 
+## Phase 3.6 — Close the estate: index + spend (if those skills are present)
+Two one-command closes, run after the files are written:
+- **archivist** installed and the project has ORACLE output folders → re-run its `scan` so
+  `oracle-index.md` includes every dossier this session produced; the next session's oracle
+  intake then starts already knowing the estate.
+- **spend** installed and this session spawned agents / workflows / gpt calls → run its
+  `report` and paste the verdict line into `HANDOFF.md` — and any ROUTING VIOLATIONS
+  verbatim, never smoothed.
+Skip silently only when the skills aren't installed.
+
 ## Phase 4 — Verify resumability (self-check)
 Before finishing, confirm — and fix any miss:
 - **Could a fresh session with zero memory resume from `START-HERE.md` alone?** It must name what to read and what to do, in order.
@@ -56,6 +66,7 @@ Before finishing, confirm — and fix any miss:
 - `STATE.md`/`HANDOFF.md` reflect what *actually* happened — no invented decisions or code; half-done work marked as such.
 - `CLAUDE.md` (the foundation) was **merged**, not overwritten, and only stably-true things were added to it (volatile status stayed in HANDOFF/STATE).
 - All cited paths/commands are real.
+- If archivist/spend are installed: the index was re-scanned after the last dossier landed, and the spend verdict line is in `HANDOFF.md`.
 - In a chat: every file was presented for download with the re-upload reminder.
 
 ## Phase 5 — Open the live line (multi-session environments only)

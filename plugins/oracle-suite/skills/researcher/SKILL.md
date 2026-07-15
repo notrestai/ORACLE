@@ -11,6 +11,8 @@ A staged research workflow that takes a single prompt and drives it from a first
 
 The research question is everything the user passed when invoking the skill. Use `$ARGUMENTS` if it is populated; otherwise use the text the user typed after `/researcher`. If the prompt is empty or one ambiguous word, ask exactly one clarifying question before starting — otherwise begin immediately. Treat the original prompt as the fixed yardstick: every later pass is judged against *this* question, not whatever interesting tangents appear along the way.
 
+**Consult the index first (if present).** If the repo carries an `oracle-index.md` — or the **archivist** skill is installed and prior ORACLE output folders exist — run one `find` on the question's topic before Pass 1. On a hit, surface it (path, date, headline) and offer *reuse* / *extend* (this run, seeded with the old dossier) / *fresh* — never silently re-spend the search budget on a question this project already answered.
+
 ## Quick mode (`--quick`)
 If the invocation includes `--quick` (or a clear equivalent — "quick", "brief", "no files", "just the summary"), run lightweight instead of the full workflow:
 - **No files.** Write nothing to disk — no background, no dossier. Skip the "Setup & output files" step entirely.

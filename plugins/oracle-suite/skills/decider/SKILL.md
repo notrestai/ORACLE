@@ -15,6 +15,8 @@ The decision is everything the user passed when invoking the skill. Use `$ARGUME
 
 For decisions with professional stakes — medical, legal, large financial commitments — structure the thinking, flag `[needs expert]` where licensed judgment is required, and say plainly the final call needs a professional, not a framework.
 
+**Consult the index first (if present).** If the repo carries an `oracle-index.md` — or the **archivist** skill is installed and prior ORACLE output folders exist — run one `find` on the decision's topic before Pass 1: a prior research/decision dossier is ready-made Pass-3 evidence (carried with its own labels and date), and a prior decision on the same question deserves to be surfaced before re-deciding it.
+
 ## Quick mode (`--quick`)
 If the invocation includes `--quick` (or a clear equivalent — "quick", "brief", "no files", "just the summary"), run lightweight instead of the full workflow:
 - **No files.** Write nothing to disk — no background, no dossier. Skip the "Setup & output files" step entirely.

@@ -15,6 +15,8 @@ The subject is what the user passed — pasted text, an attached document, a URL
 
 Web search/fetch is this skill's engine. If those tools are unavailable, say so plainly — a fact-check without live sources is just an opinion with a rubric — and offer only clearly-labeled `[recall]` assessments.
 
+**Consult the index first (if present).** If the repo carries an `oracle-index.md` — or the **archivist** skill is installed and prior ORACLE output folders exist — run one `find` on the subject before Pass 1: a prior `factcheck/` dossier on the same claims means offer *reuse* / *re-verify* (claims age) / *fresh* rather than re-spending the per-claim budget blind.
+
 ## Quick mode (`--quick`)
 If the invocation includes `--quick` (or a clear equivalent — "quick", "brief", "no files", "just the summary"), run lightweight instead of the full workflow:
 - **No files.** Write nothing to disk — no background, no dossier. Skip the "Setup & output files" step entirely.

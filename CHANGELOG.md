@@ -1,6 +1,23 @@
 # Changelog — ORACLE Suite
 
-## 2.8.0 — 2026-07-15
+## 2.8.1 — 2026-07-15
+
+**archivist + spend wired into the suite — the skills now trigger each other.**
+
+- **sessionend Phase 3.6 "Close the estate":** at every wrap-up, re-scan the oracle index
+  (so the next session's intake starts already knowing the estate) and run `spend report`,
+  pasting the verdict line into `HANDOFF.md` — ROUTING VIOLATIONS verbatim, never smoothed.
+  New resumability self-check line to match.
+- **oracle** now routes to both from the Objective ("what do we already know?" → `/archivist`,
+  audit model spend/routing → `/spend`) — on top of the v2.8.0 intake index consult.
+- **Consult-the-index-first** added to every search-budget skill — researcher (before Pass 1),
+  marketresearcher (before Stage 1, date said out loud — market data ages), explainer (prior
+  understanding dossier), decider (prior dossiers = ready-made Pass-3 evidence), factcheck
+  (prior verdicts: reuse / re-verify / fresh). One `find` before spending; reuse/extend/fresh
+  is always the user's choice.
+- **Spend logging at every fan-out surface:** fable-mode Hard Rule 11 now closes with the
+  receipt (log each spawn, report at close, exit 4 surfaced); director logs one ledger line
+  per pipeline stage subagent; the gpt lane logs its tokens-used echo (`--lane gpt`).
 
 **archivist + spend: the index and the receipt.**
 

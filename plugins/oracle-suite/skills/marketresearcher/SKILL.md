@@ -13,6 +13,8 @@ This produces **research inputs for a decision, not financial or investment advi
 
 The research target is everything the user passed when invoking the skill (a market, industry, product idea, or "should I build X" question). Use `$ARGUMENTS` if populated; otherwise the text after `/marketresearcher`. If the target is too vague to scope (e.g. just "fintech"), ask exactly one clarifying question — ideally about the buyer or the angle — then begin. Treat the original target as the fixed yardstick.
 
+**Consult the index first (if present).** If the repo carries an `oracle-index.md` — or the **archivist** skill is installed and prior ORACLE output folders exist — run one `find` on the target before Stage 1. On a hit, surface it (path, date, headline) and offer *reuse* / *extend* / *fresh* — market data ages fast, so say the date out loud — never silently re-spend the search budget.
+
 ## Quick mode (`--quick`)
 If the invocation includes `--quick` (or a clear equivalent — "quick", "brief", "no files", "just the summary"), run lightweight instead of the full workflow:
 - **No files.** Write nothing to disk — no background, no dossier. Skip the "Setup & output files" step entirely.

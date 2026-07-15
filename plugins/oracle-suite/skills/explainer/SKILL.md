@@ -13,6 +13,8 @@ The bar is *understanding*, not coverage: a reader should finish able to predict
 
 The subject is everything the user passed when invoking the skill — a topic, a question, a system, or an attached document to be understood. Use `$ARGUMENTS` if populated; otherwise the text after `/explainer`. If a document is referenced but not in context, read it from disk first. If the subject is genuinely ambiguous ("explain the thing"), ask exactly one clarifying question, then begin. Note any stated audience ("for my mom", "I'm a senior engineer") — it calibrates every layer.
 
+**Consult the index first (if present).** If the repo carries an `oracle-index.md` — or the **archivist** skill is installed and prior ORACLE output folders exist — run one `find` on the subject before Pass 1: a prior `understanding/` dossier on the same subject means offer *reuse* / *extend* / *fresh* instead of rebuilding the mental model from scratch.
+
 ## Quick mode (`--quick`)
 If the invocation includes `--quick` (or a clear equivalent — "quick", "brief", "no files", "just the summary"), run lightweight instead of the full workflow:
 - **No files.** Write nothing to disk — no background, no dossier. Skip the "Setup & output files" step entirely.

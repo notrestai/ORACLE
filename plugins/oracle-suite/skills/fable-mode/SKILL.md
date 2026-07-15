@@ -86,7 +86,10 @@ zero lost work).
     final synthesis); **haiku** for trivial mechanical sweeps. Omitting the model
     silently inherits Fable and bills Fable credit for work a cheaper model does
     identically — the omission is the violation. Fable is the orchestrator seat,
-    not the fan-out; work that truly needs Fable runs in the main loop.
+    not the fan-out; work that truly needs Fable runs in the main loop. When the
+    suite's **spend** skill is present, receipt the rule: log each spawn's observed
+    tokens to its ledger and close fan-out sessions with `spend.py report` (exit 4
+    = a violation to surface, never smooth).
 
 ## THE FABLE DIFFERENCE — your instinct vs the fable move
 
