@@ -34,6 +34,10 @@ plugin, `~/.claude/skills/fable-director/` when running as a loose global skill.
    to the LATEST Opus (`/model opus` in-app · `--model opus` CLI · or launch via
    `scripts/fable-launcher.sh`, which probes and falls back automatically) — log the
    fallback in the ledger and continue; the protocol is model-agnostic. Lanes: never Fable.
+   And Fable never rides below the seat: on the rare owner-sanctioned agent spawn anywhere
+   in the arrangement (incl. lanes' own subagents), the model is set explicitly by
+   difficulty — sonnet default, opus for judgment-heavy verification — never inherited
+   Fable. Fable pays for direction, not fan-out.
 
 ## MODE DETECT (in order)
 

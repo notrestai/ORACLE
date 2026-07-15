@@ -1,5 +1,28 @@
 # Changelog — ORACLE Suite
 
+## 2.7.0 — 2026-07-15
+
+**Subagent model routing: Fable never rides in a subagent (the single biggest token-saving hard rule).**
+
+- The problem: agents/subagents spawned from a Fable (`claude-fable-5`) session — ultracode/
+  Workflow fan-outs, deep-research sweeps, review panels, pipeline stages — silently INHERIT
+  the parent model when no model is set, billing Fable credit for work Sonnet does identically.
+- New HARD RULE, hardcoded at two layers: the **SessionStart hook** now injects it
+  unconditionally every session (so it reaches every fan-out surface even when no suite skill
+  is loaded), and **fable-mode** carries it as Hard Rule 11 (+ the tool-graph fan-out bullet).
+  Every spawned agent must set an explicit cheaper model, routed by difficulty: **sonnet**
+  default (exploration, search fan-outs, reading/summarizing, drafting, control agents),
+  **opus** only for judgment-heavy lanes (adversarial verification, architecture, complex
+  debugging, final synthesis), **haiku** for trivial mechanical sweeps. The omission is the
+  violation; Fable is the orchestrator seat, not the fan-out.
+- Wired into every agent-spawning skill: **director** (stage subagents = sonnet; opus for
+  critic/decider/high-cap stepbystep; new self-check line), **critic** `--panel` (sonnet per
+  lens, opus for a spawned adjudicator), **introspect** (control agent = haiku/sonnet — it
+  guesses from context, no frontier model needed), **fable-director** (rule 6 extended:
+  "Fable pays for direction, not fan-out").
+- The same rule is mirrored in the owner's global `~/.claude/CLAUDE.md` as a standing order
+  (the second hardcode layer, outside the plugin).
+
 ## 2.6.0 — 2026-07-10
 
 **chatroom: a shared floor where Claude sessions and GPT work together.**

@@ -30,9 +30,11 @@ thinking from intake to handoff. Seventeen skills that compose:
   (metered director + flat lanes over per-lane blackboard files with token-watch wakes;
   V4 protocol + repo scaffolder bundled).
 - **sessionend** — writes START-HERE / HANDOFF / STATE / CLAUDE.md for a seamless next session.
-- **fable-mode** — the Fable behavioral contract: the discipline loop + hard rules, consumer-side
-  verification, the outage playbook (reroute, stage, never stall), tool-graph craft, and
-  situational profiles — auto-anchored into every session by the SessionStart hook.
+- **fable-mode** — the Fable behavioral contract: the discipline loop + hard rules (incl.
+  subagent model routing — Fable never rides in a subagent; spawned agents get explicit
+  sonnet/opus/haiku by difficulty), consumer-side verification, the outage playbook
+  (reroute, stage, never stall), tool-graph craft, and situational profiles — auto-anchored
+  into every session by the SessionStart hook.
 
 Most skills also support `--quick` (chat-only, no files) and write a paired *background* +
 *Dossier* file for anything substantial.

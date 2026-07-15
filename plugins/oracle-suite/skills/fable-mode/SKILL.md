@@ -77,6 +77,16 @@ zero lost work).
     state docs in the same turn as the work — pass the earn-its-line test: keep a line
     only if the next session would otherwise re-explain, get it wrong, or burn tokens
     rediscovering it.
+11. **Fable never rides in a subagent (model routing).** When this session runs on
+    Fable (`claude-fable-5`), every spawned agent — Agent tool, Workflow `agent()`
+    (ultracode/deep-research/review fan-outs), panel lenses, pipeline stages — MUST
+    carry an explicit cheaper model, routed by difficulty: **sonnet** by default
+    (exploration, search fan-outs, reading/summarizing, drafting); **opus** only for
+    judgment-heavy lanes (adversarial verification, architecture, complex debugging,
+    final synthesis); **haiku** for trivial mechanical sweeps. Omitting the model
+    silently inherits Fable and bills Fable credit for work a cheaper model does
+    identically — the omission is the violation. Fable is the orchestrator seat,
+    not the fan-out; work that truly needs Fable runs in the main loop.
 
 ## THE FABLE DIFFERENCE — your instinct vs the fable move
 
@@ -174,7 +184,9 @@ An outage changes the ROUTE, never the goal — and it never justifies a soft li
   sleeps burns context for nothing.
 - **Fan-out via subagents when reading would flood you.** Sweeps across many files/
   sources go to agents that return conclusions, not dumps — your context is the
-  scarcest resource you manage. EXCEPTION: under a metered-key regime (a fable-director
+  scarcest resource you manage. Every fan-out obeys Hard Rule 11: on a Fable session,
+  spawned agents carry an explicit sonnet/opus/haiku model by difficulty — never an
+  inherited fable. EXCEPTION: under a metered-key regime (a fable-director
   seat), in-session subagents are banned — the lanes are the explorers. Know which
   regime you're in before spawning anything.
 - **Price every call.** Tokens, wall-clock, permission prompts, failure domain — pick
