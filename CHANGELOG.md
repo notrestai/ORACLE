@@ -1,5 +1,20 @@
 # Changelog — ORACLE Suite
 
+## 2.12.0 — 2026-07-21
+
+**The seat-builder ritual — persistent builder lanes (owner-ratified 2026-07-21).**
+
+- **fable-swarm gains "Persistent builder lanes":** substantive builds run through ONE
+  persistent Opus builder lane per domain — the seat specs (grep-able done-when), the
+  lane builds and returns tight, the seat gates every round (exit-code-checked
+  verification, never piped through tail; bundle-grep the claimed change; ledger line
+  per round) — and feedback rounds RESUME THE SAME LANE via SendMessage, never a fresh
+  spawn. The lane's accumulated context of the code it wrote is both the token saving
+  (round N costs the delta, not re-onboarding) and the quality keeper (proven across
+  6+ live rounds). Diagnosis/exploration stays parallel one-shot lanes.
+- SessionStart hook line + global foundation guidance updated to carry the ritual;
+  also stamps docs/oracle-skill-flow.html to v2.12.0 per the release ritual.
+
 ## 2.11.0 — 2026-07-15
 
 **Comprehensive four-lane swarm review — every cross-reference gap closed.**

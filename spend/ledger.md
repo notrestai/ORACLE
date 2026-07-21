@@ -9,3 +9,4 @@
 [2026-07-15 20:14Z] lane=subagent model=claude-opus-4-8 tokens=62247 grade=observed purpose="comprehensive review: rename-seam lane (CONFIRMED: hook stub breaks director bootstrap + MODE DETECT)"
 [2026-07-15 20:14Z] lane=subagent model=claude-opus-4-8 tokens=60199 grade=observed purpose="comprehensive review: model-policy lane (1 stale example; all 20 skills clean on opus-only)"
 [2026-07-15 20:14Z] lane=subagent model=claude-opus-4-8 tokens=45836 grade=observed purpose="comprehensive review: docs/counts lane (7 findings: inner README, TUTORIAL, CLAUDE.md version)"
+[2026-07-21 04:53Z] lane=subagent model=claude-opus-4-8 tokens=52136 grade=observed purpose="visual-plan research lane (BuilderIO refs) — late receipt per COORD correction entry"

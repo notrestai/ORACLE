@@ -64,6 +64,26 @@ resource in the arrangement).
 - **Blocked ≠ stopped.** A lane hitting a wall doesn't idle the swarm: the seat keeps
   every unblocked lane moving and re-probes the blocked path cheaply next turn.
 
+## Persistent builder lanes — the seat-builder ritual (owner-ratified 2026-07-21)
+
+For substantive BUILDS, the swarm runs one level deeper than fire-and-forget lanes.
+The seat never hand-builds a feature; it specs, gates, and ships:
+
+1. **Spec at the seat** — objective, constraints, exact deliverables, grep-able
+   done-when. The spec is the lane's whole onboarding; write it like a directive.
+2. **One persistent Opus builder lane per domain** — spawn it once; it builds and
+   returns tight (paths + what changed + how verified, never dumps).
+3. **Feedback rounds RESUME THE SAME LANE** (SendMessage to its id/name) — never a
+   fresh spawn. The lane's accumulated context of the code it wrote is both the
+   token saving (round N costs the delta, not a re-onboarding) and the quality
+   keeper (proven across 6+ rounds live). A fresh lane per round forfeits both.
+4. **The seat gates every round:** verification commands exit-code-checked — never
+   piped through `| tail`/`| head` (they eat the exit code); grep the actual
+   bundle/artifact for the claimed change; bank the round as a ledger line.
+5. **Scope the lanes by domain** — two domains = two builder lanes, not one
+   mega-lane; diagnosis and exploration stay parallel one-shot lanes (fan out,
+   consume conclusions, discard).
+
 ## QC — the refuter, as code
 
 Fable-director's QC relay becomes a verification stage that runs automatically, not a
