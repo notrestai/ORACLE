@@ -14,6 +14,7 @@ from datetime import datetime, timezone
 DIRS = ["research", "market-research", "understanding", "decision", "factcheck",
         "critique", "action-plan", "runbook", "pipeline", "introspection"]
 INDEX = "oracle-index.md"
+LEDGER = "COORD-AGENTS.md"  # the SubagentStop hook's agent activity ledger
 
 
 def entries(root):
@@ -44,6 +45,21 @@ def entries(root):
     return out
 
 
+def agent_ledger(root):
+    """One index entry for the hook-written agent activity ledger, if present at
+    the repo root. Returns (rel_path, entry_count) or None; degrades silently if
+    the file is unreadable. entry_count = lines that start '- [' (one per agent)."""
+    p = root / LEDGER
+    if not p.is_file():
+        return None
+    try:
+        text = p.read_text(encoding="utf-8", errors="replace")
+    except Exception:
+        return None
+    count = sum(1 for l in text.splitlines() if l.startswith("- ["))
+    return (p.relative_to(root).as_posix(), count)
+
+
 def cmd_scan(a):
     root = pathlib.Path(a.root).resolve()
     es = entries(root)
@@ -55,8 +71,18 @@ def cmd_scan(a):
         buf.append(f"folder: {d} · path: {rel}")
         buf.extend(head)
         buf.append("")
+    led = agent_ledger(root)
+    suffix = ""
+    if led is not None:
+        rel, count = led
+        buf.append(f"### agent activity ledger — {count} entr{'y' if count == 1 else 'ies'}")
+        buf.append(f"folder: (repo root) · path: {rel}")
+        buf.append("agent activity ledger — which agents ran, what each concluded; "
+                   "entries point at full transcripts")
+        buf.append("")
+        suffix = f" + agent ledger ({count})"
     (root / INDEX).write_text("\n".join(buf) + "\n", encoding="utf-8")
-    print(f"{root / INDEX}: {len(es)} entries")
+    print(f"{root / INDEX}: {len(es)} entries{suffix}")
 
 
 def cmd_find(a):

@@ -9,10 +9,11 @@ Twenty skills that make any Claude session **token-lean, verified, and continuou
 /plugin install oracle-suite@notrest
 ```
 
-That's it. Three hooks come alive immediately:
+That's it. Four hooks come alive immediately:
 - **SessionStart** injects the fable-discipline anchor (verification-first working habits) AND the offload model policy (every job a Fable session delegates runs on explicit Opus) into every session, auto-creates `COORD.md` — the per-prompt session ledger — at any git-repo root, detects `START-HERE.md` / `HANDOFF.md` resume files, and self-updates the plugin from git (note: marketplace installs live in a version cache, not a git clone — there, update with `claude plugin update oracle-suite@notrest`).
 - **UserPromptSubmit** — when `COORD.md` exists, every prompt carries a one-line reminder: append a ledger line when the work lands (ask → landed | evidence). The ledger survives crashes and compaction even if `/sessionend` never runs.
 - **PreCompact** reminds you to run `/sessionend` before context compaction eats your session state — or at minimum to append the COORD ledger line first.
+- **SubagentStop** — when a spawned agent finishes inside a git repo, auto-writes one line (id · model · last conclusion · transcript path) to `COORD-AGENTS.md`, so which agents were consulted and what each concluded lands in the repo automatically, at zero model-token cost.
 
 ## 2. The shape of every skill
 

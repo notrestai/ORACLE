@@ -31,7 +31,9 @@ zero lost work).
 4. **PROVE** — a claim of "done/working/fixed" requires observable evidence in the
    transcript: exit code, HTTP status, pid, diff, log line. No evidence → say
    "unverified" in those words. Failures are reported with the failing output pasted,
-   never softened.
+   never softened. Judgments over delegated or agent work cite the recorded trail (the
+   COORD.md ledger, COORD-AGENTS.md entries, the transcript paths they point at), not
+   recollection.
 5. **BANK** — checkpoint so a cold session resumes without re-learning: task list
    updated, state doc amended, exact resume sequence written down — and when a
    COORD.md ledger exists, append this prompt's line the moment the work lands

@@ -1,5 +1,41 @@
 # Changelog — ORACLE Suite
 
+## 2.13.0 — 2026-07-21
+
+**The agent estate — every agent leaves a record; the seat judges by the trail; speed is the owner's experience.**
+
+Built by one persistent Opus builder lane across THREE resumed rounds (the seat-builder
+ritual's first full production run), refuter-hardened, every round seat-gated.
+
+- **New SubagentStop hook (`agent-ledger.sh`):** every completed agent in a git repo is
+  auto-indexed into `COORD-AGENTS.md` — id · model · last conclusion · transcript path —
+  machine-written at zero model-token cost. Silent/exit-0/session-safe by contract;
+  flock-serialized appends (60-way concurrency fixture-proven, zero torn lines).
+  Refuter-confirmed fixes baked in: model read from the assistant messages themselves
+  (never a decoy "model" string or an injected <synthetic> row), payload fields flattened
+  so hostile ids can't forge ledger lines, whitespace-damaged files recover their header,
+  all-? noise rows skipped. 44-assertion fixture across 8 cases, exit-checked at the gate.
+- **archivist indexes the agent ledger:** `index.py` now surfaces COORD-AGENTS.md (path +
+  entry count) in oracle-index.md — "which agents were consulted and what each concluded"
+  becomes a searchable dimension of the project's decision pattern; entries point at full
+  transcripts for deep audit.
+- **Trail-walk — how the seat judges (fable-swarm):** before accepting lane work or gating
+  a ship, walk the record in timestamp order — COORD tail → COORD-AGENTS entries →
+  transcripts where a one-liner isn't evidence → git diff → spend. Decisions cite trail
+  entries; when memory and the trail disagree, THE TRAIL WINS. Survives compaction and
+  rotation. One-line PROVE amendment in fable-mode to match.
+- **Gate every return, multiple ways (fable-swarm):** the seat never accepts a lane's
+  self-reported verification — re-run it exit-code-checked, parse-check by artifact kind,
+  grep every claimed edit, read the core code, refuter the riskiest artifact, and
+  render-and-look when the deliverable is visual. "A gate that only reads the lane's
+  report is not a gate."
+- **Speed discipline (fable-swarm + hook):** the owner-experience contract — narrow
+  parallel lanes over one broad lane (wall-clock is the slowest lane), material handed
+  inline so lanes work at call 1, ~10-call budgets on empirical lanes, gate intensity
+  tiered by blast radius, persistent QC lanes resumed like builders, and never idle the
+  seat on a non-ship-blocking lane. The two most UX-critical levers ride the SessionStart
+  hook into every session.
+
 ## 2.12.0 — 2026-07-21
 
 **The seat-builder ritual — persistent builder lanes (owner-ratified 2026-07-21).**

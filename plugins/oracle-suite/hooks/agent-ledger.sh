@@ -1,0 +1,184 @@
+#!/bin/bash
+# oracle-suite SubagentStop hook — auto-index every completed agent.
+# The harness already writes each subagent's full transcript to disk; this hook
+# adds the zero-model-token index layer: one machine-written line per agent into
+# COORD-AGENTS.md at the git root, so the repo carries the session's decision
+# pattern (which agents were consulted, what each concluded, where the full
+# transcript lives). COORD.md is the human ledger; this is its agent estate.
+#
+# Absolutely silent on success AND on every failure: no stdout, no stderr, always
+# exit 0 — a broken hook must never break a session. The whole body is wrapped so
+# any error still exits 0.
+
+# ── capture the payload off stdin, then decide git-root early (no stdin needed
+# for git). Outside a git repo: exit 0 silently, having written nothing.
+PAYLOAD="$(cat 2>/dev/null || true)"
+GIT_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+[ -z "$GIT_ROOT" ] && exit 0
+
+# ── everything else in python3 (stdlib only): defensive JSON parse of the
+# SubagentStop payload (schema unverified — tries several key spellings),
+# transcript scrape for model + last-assistant snippet, and a flock'd append
+# (chatroom/room.py's concurrency pattern — shell flock one-liners aren't
+# reliable on macOS). Payload rides in via env so the heredoc stays python's
+# script and stdin is free. Note: the env carrier has the ~1 MB ARG_MAX ceiling —
+# a payload above it silently drops the entry (harmless: SubagentStop payloads
+# carry only paths/ids, orders of magnitude under the limit).
+export GIT_ROOT PAYLOAD
+python3 <<'PY' 2>/dev/null || true
+import os, sys, re, json, fcntl
+from datetime import datetime, timezone
+
+try:
+    git_root = os.environ.get("GIT_ROOT", "").strip()
+    if not git_root:
+        sys.exit(0)
+
+    # ── defensive parse: tolerate absent/malformed JSON entirely.
+    data = {}
+    try:
+        data = json.loads(os.environ.get("PAYLOAD", ""))
+        if not isinstance(data, dict):
+            data = {}
+    except Exception:
+        data = {}
+
+    # ── transcript path: try the plausible key spellings in order.
+    tpath = ""
+    for k in ("agent_transcript_path", "agentTranscriptPath",
+              "transcript_path", "transcriptPath"):
+        v = data.get(k)
+        if isinstance(v, str) and v:
+            tpath = v
+            break
+
+    # ── agent id: explicit keys, else derive from the filename agent-<id>.jsonl.
+    agent_id = ""
+    for k in ("agent_id", "agentId", "subagent_id", "subagentId"):
+        v = data.get(k)
+        if v:
+            agent_id = str(v)
+            break
+    if not agent_id and tpath:
+        m = re.match(r"agent-(.+?)\.jsonl$", os.path.basename(tpath))
+        if m:
+            agent_id = m.group(1)
+    if not agent_id:
+        agent_id = "?"
+
+    # ── scrape the transcript: model + byte size + the first ~160 chars of the
+    # LAST assistant text (newlines flattened). Model comes from the assistant
+    # message objects we already walk (msg.model, else obj.model on assistant
+    # lines) — NOT a global "model" regex, which grabs decoy/tool-content or
+    # "<synthetic>" keys. Keep the LAST real assistant's model, pairing it with
+    # the same line whose text becomes the snippet.
+    model, snippet, size = "?", "?", "?"
+    if tpath:
+        p = tpath if os.path.isabs(tpath) else os.path.join(os.getcwd(), tpath)
+        try:
+            size = str(os.path.getsize(p))
+        except Exception:
+            size = "?"
+        try:
+            with open(p, "r", encoding="utf-8", errors="replace") as tf:
+                text = tf.read()
+        except Exception:
+            text = ""
+        if text:
+            last = None
+            for line in text.splitlines():
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    obj = json.loads(line)
+                except Exception:
+                    continue
+                if not isinstance(obj, dict):
+                    continue
+                role = obj.get("role") or obj.get("type")
+                msg = obj.get("message")
+                if isinstance(msg, dict):
+                    role = msg.get("role", role)
+                    content = msg.get("content", obj.get("content"))
+                else:
+                    content = obj.get("content")
+                if role != "assistant":
+                    continue
+                # model from THIS assistant line (msg-level first, then top-level);
+                # skip empty and the "<synthetic>" placeholder.
+                m_here = None
+                if isinstance(msg, dict) and isinstance(msg.get("model"), str):
+                    m_here = msg.get("model")
+                elif isinstance(obj.get("model"), str):
+                    m_here = obj.get("model")
+                if m_here and m_here.strip() and m_here.strip() != "<synthetic>":
+                    model = m_here.strip()
+                txt = ""
+                if isinstance(content, str):
+                    txt = content
+                elif isinstance(content, list):
+                    parts = []
+                    for b in content:
+                        if isinstance(b, dict) and b.get("type") in (None, "text") \
+                                and isinstance(b.get("text"), str):
+                            parts.append(b["text"])
+                        elif isinstance(b, str):
+                            parts.append(b)
+                    txt = " ".join(parts)
+                if txt and txt.strip():
+                    last = txt
+            if last is not None:
+                flat = re.sub(r"\s+", " ", last).strip()
+                if flat:
+                    snippet = flat[:160]
+
+    ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%MZ")
+    # flatten the payload-derived fields so a hostile/malformed value carrying
+    # newlines can't forge extra ledger lines (tpath stays raw above for file I/O).
+    agent_id = re.sub(r"\s+", " ", agent_id).strip() or "?"
+    tdisp = (re.sub(r"\s+", " ", tpath).strip() or "?") if tpath else "?"
+
+    # all-unknown row (unrecognized schema / garbage payload) is pure ledger
+    # noise — skip the append entirely; a silent no-write still honors the contract.
+    if not (agent_id == "?" and tdisp == "?" and snippet == "?"):
+        entry = (f"- [{ts}] agent={agent_id} model={model} bytes={size} "
+                 f"| last: {snippet} | transcript: {tdisp}\n")
+
+        header = (
+            "# COORD-AGENTS.md — agent activity ledger (auto-written by the oracle-suite SubagentStop hook)\n"
+            "\n"
+            "One line per completed agent, machine-written — never hand-edit (the COORD.md ledger is the\n"
+            "human layer). The transcript path on each line is the full record: the entry is the index,\n"
+            "the transcript is the audit. Compact the oldest lines into COORD-AGENTS-ARCHIVE.md at ~100 lines.\n"
+            "\n"
+            "## LEDGER\n"
+        )
+
+        # ── concurrency-safe append: O_APPEND + fcntl.flock serialize writers.
+        # Header is written only when the file has no "## LEDGER" marker AND is
+        # effectively blank (empty or whitespace-only) — so a whitespace-only file
+        # still recovers its header, while a hand-damaged file with real content
+        # but no marker just gets the entry appended (never a header mid-file).
+        ledger = os.path.join(git_root, "COORD-AGENTS.md")
+        try:
+            fd = os.open(ledger, os.O_RDWR | os.O_CREAT | os.O_APPEND, 0o644)
+            with os.fdopen(fd, "a+", encoding="utf-8") as lf:
+                fcntl.flock(lf, fcntl.LOCK_EX)
+                try:
+                    lf.seek(0)
+                    existing = lf.read()
+                    if "## LEDGER" not in existing and not existing.strip():
+                        lf.write(header)
+                    lf.write(entry)
+                    lf.flush()
+                finally:
+                    fcntl.flock(lf, fcntl.LOCK_UN)
+        except Exception:
+            pass
+except Exception:
+    pass
+sys.exit(0)
+PY
+
+exit 0

@@ -83,6 +83,55 @@ The seat never hand-builds a feature; it specs, gates, and ships:
 5. **Scope the lanes by domain** — two domains = two builder lanes, not one
    mega-lane; diagnosis and exploration stay parallel one-shot lanes (fan out,
    consume conclusions, discard).
+6. **Gate every return, multiple ways** — the seat NEVER accepts a lane's
+   self-reported verification. It re-runs the verification itself, exit-code-checked
+   (never `| tail`/`| head` — they eat the exit code); parse-checks each artifact by
+   kind (`bash -n` for shell, `json.load` for JSON, `py_compile` for python); greps
+   every claimed edit against the tree; reads the core artifact's code at the seat;
+   sends the riskiest artifact to an independent refuter lane (review-the-fix by a
+   different lane than the builder); and when the deliverable RENDERS (an HTML page,
+   a diagram, a UI) opens it and looks — screenshot both themes, console clean —
+   before accepting (the game-forge no-unrun-ships ethos). A gate that only reads the
+   lane's report is not a gate.
+
+## Trail-walk — how the seat judges
+
+Before the seat accepts a lane's work, chooses between conflicting findings, or gates a
+ship, it walks the recorded trail IN TIMESTAMP ORDER instead of judging from memory:
+
+1. **COORD.md ledger tail** — what each prompt actually landed, with evidence.
+2. **The relevant COORD-AGENTS.md entries** — what each agent was asked and concluded,
+   in the sequence they finished.
+3. **The transcript paths on those entries** — when a one-line conclusion isn't enough
+   evidence, `grep` the full record instead of trusting the summary.
+4. **git diff** — what actually changed in the tree, not what a lane said changed.
+5. **The spend ledger** — what the round cost.
+
+Decisions cite trail entries, not recollection. When the seat's memory and the trail
+disagree, **THE TRAIL WINS** — it was written when the work landed (the same tiebreaker as
+COORD vs HANDOFF). The trail also survives compaction and rotation: a successor seat
+reconstructs why every decision was made by replaying it in order, with no live context.
+
+## Speed discipline — wall-clock is the slowest lane
+
+Speed discipline is the OWNER-EXPERIENCE contract of the swarm — the owner keeps a
+responsive seat that answers while lanes work, and results land as fast as the slowest
+NARROW lane; a seat that idles waiting on one broad lane is the arrangement failing its user.
+
+1. **Narrow lanes in parallel beat one broad lane** — wall-clock equals the slowest lane,
+   not the sum; three refuters with two attack surfaces each finish in a third of one
+   six-surface refuter (same tokens, same policy).
+2. **Hand the lane its material inline** — paste the artifact and the exact contract into
+   the prompt; every read round-trip saved is wall-clock saved; a lane should attack at
+   call 1, not forage.
+3. **Budget empirical lanes** — ~10 tool calls; past budget, PLAUSIBLE-with-scenario beats
+   a third reproduction (root-cause-with-a-budget, applied to QC).
+4. **Tier the gate by blast radius** — full multi-way gate + refuter for executable /
+   load-bearing artifacts; grep-and-read for docs; nothing for cosmetic.
+5. **Persistent QC lane** — resume the same refuter per round like the builder; round N
+   refutation costs the delta.
+6. **Never idle the seat** — only ship-blocking lanes are worth waiting for; everything
+   else lands async and is read next turn.
 
 ## QC — the refuter, as code
 
@@ -108,6 +157,11 @@ while other lanes still work; no barrier unless dedup genuinely needs one.
   is surfaced verbatim, never smoothed.
 - **archivist** — before any research fan-out, consult `oracle-index.md`; a question
   the estate already answered costs one grep, not a lane.
+- **Agent activity records itself.** Every completed lane is auto-written to
+  `COORD-AGENTS.md` by the SubagentStop hook — id · model · last conclusion · transcript
+  path — at zero prompt overhead. Never instruct a lane to write a process/summary file;
+  the harness writes the transcript and the hook writes the index. The seat consumes tight
+  returns; the durable record lands for free.
 - **Estate files (STATE / HANDOFF / coord) are banking and crash insurance, NOT a
   message bus.** Lanes die with the app — so the seat BANKs at every seam: what's
   dispatched, what's landed, the exact resume payload. A cold session re-seats the

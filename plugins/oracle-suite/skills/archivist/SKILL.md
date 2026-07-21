@@ -35,6 +35,21 @@ dossier's own 📌 Read Me First lines.
    dossier, at `/sessionend`, at oracle intake in a repo with prior runs. A scan is
    read-only over dossiers and rewrites one file.
 
+## The agent ledger is part of the estate
+
+Dossiers are one dimension of what a project already knows; **which agents were consulted
+and what each concluded** is another. The SubagentStop hook auto-writes `COORD-AGENTS.md`
+at the repo root — one machine-written line per completed agent (id · model · the last
+thing it said · the path to its full transcript). When that file exists, `scan` adds one
+entry to `oracle-index.md`: its path and its ledger entry count (a pointer into the estate,
+not a copy of every agent line). From there the workflow is one hop deeper than for
+dossiers — the index points you to `COORD-AGENTS.md`; `grep` *that* for "have we already
+had an agent look at X", and each hit points at the full transcript on disk for a deep
+audit. All at zero model-token cost: the harness writes the transcript, the hook writes the
+line, the scan writes the pointer. Same honesty rule as the index — `COORD-AGENTS.md` is
+machine-written and a finding aid; read the transcript it points to before citing what an
+agent concluded.
+
 ## Honesty rules
 
 - **The index is a finding aid, never a source.** Cite the dossier it points to; never

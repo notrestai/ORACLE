@@ -62,6 +62,10 @@ Skip silently only when the skills aren't installed.
   `- [UTC] [sessionend] session closed: <one-line outcome> | handoff: START-HERE.md` —
   and if the ledger has grown past ~40 lines, compact the oldest entries into
   `COORD-ARCHIVE.md` now so the next session reads a short tail.
+- **COORD-AGENTS.md** present (the hook-written agent activity ledger) and grown past
+  ~100 lines → compact the oldest entries into `COORD-AGENTS-ARCHIVE.md` so the next
+  session reads a short tail. It's machine-written — never hand-edit the entries, only
+  move whole oldest lines into the archive.
 
 ## Phase 4 — Verify resumability (self-check)
 Before finishing, confirm — and fix any miss:
